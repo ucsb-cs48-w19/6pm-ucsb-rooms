@@ -7,7 +7,7 @@
 	<!-- Links -->
 	<ul class="navbar-nav">
 		<li class="nav-item"><a class="nav-link"
-			href="static/aboutUs.html">About Us</a></li>
+			href="/static/aboutUs.html">About Us</a></li>
 	</ul>
 </nav>
 
@@ -23,31 +23,26 @@
 	</div>
 	<div class="searchArea">
 		<h1>Search For Classrooms</h1>
-		<form action="#" autocomplete="off" th:action="@{/}"
-			th:object="${roomrequest}" method="post">
+		<form action="result" autocomplete="off" method="GET">
 			<p>
 				Building<br /> <span class="myarrow"><input
 					onClick="this.select();" class="inputField" type="text"
-					maxlength="20" th:field="*{buildingName}" list="buildingList" /></span>
+					maxlength="20" list="buildingList" name="Building" /></span>
 
 				<datalist id="buildingList">
-					<option th:each="row : ${buildinglist}" th:value="${row}"
-						th:label="${row}" />
+					<option> building junk really </option>
 				</datalist>
 			</p>
 			<p>
 				Room Number<br /> <input onClick="this.select();"
-					class="inputField" type="text" th:field="*{roomNumber}"
-					list="rooms" autofocus="true" value="" />
+					class="inputField" type="text"
+					list="rooms" autofocus="true" value="" name="Room" />
 				<datalist id="rooms">
-					<option th:each="room : ${roomlist}" th:value="${room}" />
+					<option> room junk really </option>
 				</datalist>
 			</p>
 			<p>
-				<!-- 				Day (Default: today)<br /> <input class="inputField" type="text" maxlength="20" -->
-				<!-- 					th:field="*{day}" list="dayList" /> -->
-
-				<select th:field="*{day}" id="dayList">
+				<select id="dayList">
 					<option selected value="TODAY">Today</option>
 					<option value="M">Monday</option>
 					<option value="T">Tuesday</option>

@@ -1,15 +1,4 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Where is Every1?</title>
-<link href="../static/css/submissionform.css"
-	th:href="@{css/submissionform.css}" rel="stylesheet" type="text/css" />
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
+{% extends 'layout.html' %} {% block body %}
 
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<!-- Brand -->
@@ -18,16 +7,23 @@
 		<!-- Links -->
 		<ul class="navbar-nav">
 			<li class="nav-item"><a class="nav-link"
-				href="html/aboutUs.html">About Us</a></li>
+				href="static/aboutUs.html">About Us</a></li>
 		</ul>
 	</nav>
 
 	<div class="messageArea">
 		<h1>Result</h1>
-		<p
-			th:utext="'For the day: ' + ${day.getDay()} + ' in Building: ' +  ${roomrequest.getBuildingName()} + ' Room: ' + ${roomrequest.getRoomNumber()} + '<br />' + 'The schedule is: ' + '<br />' + ${day.getTimes().toString()}" />
-		<!-- <p th:text="'roomNumber: ' + ${building.roomNumber}" /> -->
+		
+		<table>
+         {% for key, value in result.items() %}
+            <tr>
+               <th> {{ key }}: </th>
+               <td> {{ value }} </td>
+            </tr>
+         {% endfor %}
+
+        </table>
+		
 		<a href="/">Search for another room</a>
 	</div>
-</body>
-</html>
+{% endblock %}
