@@ -1,5 +1,6 @@
 {% extends 'layout.html' %} {% block body %}
 
+
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<!-- Brand -->
 	<a class="navbar-brand" href="/">WhereIsEvery1?</a>
@@ -22,10 +23,10 @@
 		</p>
 	</div>
 	<div class="searchArea">
-		<h1>Search For Classrooms</h1>
+		<p>Search For Classrooms</p>
 		<form action="result" autocomplete="off" method="GET">
 			<p>
-				Building<br /> <span class="myarrow"><input
+				<p>Building</p><br /> <span class="myarrow"><input
 					onClick="this.select();" class="inputField" type="text"
 					maxlength="20" list="buildingList" name="Building" /></span>
 
