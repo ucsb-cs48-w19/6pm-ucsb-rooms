@@ -38,7 +38,7 @@ SQLAlchemy==1.2.17
 Werkzeug==0.14.1
 
 ## **Installation Steps**
-*On Linux:*
+**On Linux:**
 
 `sudo apt install python3`
 
