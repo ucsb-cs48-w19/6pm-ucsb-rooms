@@ -40,13 +40,13 @@ Werkzeug==0.14.1
 ## **Installation Steps**
 *On Linux:*
 
-sudo apt install python3
+`sudo apt install python3`
 
-sudo apt install pip3
+`sudo apt install pip3`
 
-pip3 install flask
+`pip3 install flask`
 
-pip3 install selenium
+`pip3 install selenium`
 
 ## **Functionality**
 
