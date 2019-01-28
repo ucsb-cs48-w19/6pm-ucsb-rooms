@@ -14,13 +14,8 @@ Use link -
 Use the following steps:
 
 ## Installation
-Start by installing python3
 
-Install pip3 to facilitate the next dependencies.
-
-Install flask.
-
-Install selenium driver.
+python3, pip3, selenium, flask
 
 alembic==1.0.7
 Click==7.0
