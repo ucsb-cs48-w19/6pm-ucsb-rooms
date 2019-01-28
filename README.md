@@ -1,14 +1,27 @@
-**Where is Every1?**
+# **Where is Every1?**
+
+# **Summary**
 
 Find a nice place to study, meet, utilize space within the school on in one app.
 
+
 This web app scrapes the course schedules at UCSB and then allows a user to search for an available room. This means that people can easily find space to meet up or study, and know how long a classroom is empty.
 
-Installation
+**For Users:**
+Use link - 
+
+**For Developers:**
+Use the following steps:
+
+## Installation
 Start by installing python3
+
 Install pip3 to facilitate the next dependencies.
+
 Install flask.
+
 Install selenium driver.
+
 alembic==1.0.7
 Click==7.0
 Flask==1.0.2
@@ -26,3 +39,18 @@ python-editor==1.0.3
 six==1.12.0
 SQLAlchemy==1.2.17
 Werkzeug==0.14.1
+
+## **Installation Steps**
+*On Linux:*
+
+sudo apt install python3
+
+sudo apt install pip3
+
+pip3 install flask
+
+pip3 install selenium
+
+## **Functionality**
+
+For users use the link above.
