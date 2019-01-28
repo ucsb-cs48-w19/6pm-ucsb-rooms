@@ -2,13 +2,13 @@
 
 # **Summary**
 
-Find a nice place to study, meet, utilize space within the school on in one app.
+Find a nice place to study, meet, utilize space within the school all in one app.
 
 
 This web app scrapes the course schedules at UCSB and then allows a user to search for an available room. This means that people can easily find space to meet up or study, and know how long a classroom is empty.
 
 **For Users:**
-Use link - 
+Use link - [https://ucsb-cs56-where-is-every1.herokuapp.com/](https://ucsb-cs56-where-is-every1.herokuapp.com/)
 
 **For Developers:**
 Use the following steps:
