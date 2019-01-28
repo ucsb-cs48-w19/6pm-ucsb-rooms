@@ -1,6 +1,6 @@
 # **Where is Every1?**
 
-# **Summary**
+## Summary
 
 Find a nice place to study, meet, utilize space within the school all in one app.
 
@@ -14,6 +14,8 @@ Use link - [https://ucsb-cs56-where-is-every1.herokuapp.com/](https://ucsb-cs56-
 Use the following steps:
 
 ## Installation
+
+**Prerequisites:**
 
 python3, pip3, selenium, flask
 
