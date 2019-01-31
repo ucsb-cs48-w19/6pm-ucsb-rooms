@@ -1,0 +1,5 @@
+To build this, you will need to set up a heroku remote. 
+First, make sure you have the heroku CLI installed, then run the command:
+heroku git:remote -a ucsb-rooms
+
+If you don't have access to this branch, please contact project members to aadd your heroku account as a collaborator.
