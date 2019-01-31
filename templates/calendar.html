@@ -1,0 +1,35 @@
+
+<span id="pageContent_classSchedule" style="display: inline-block; border-color: #D6D6D6; border-width: 1px; border-style: None; width: 100%; border-collapse: collapse;">
+
+<table rules="all" style="border-color:#D6D6D6;border-width:10px;border-style:none;width:100%;border-collapse:collapse;">
+	<tr>
+		<th class="heading">&nbsp;</th><th class="heading"><span>
+			Monday
+		</span></th><th class="heading"><span>
+			Tuesday
+		</span></th><th class="heading"><span>
+			Wednesday
+		</span></th><th class="heading"><span>
+			Thursday
+		</span></th><th class="heading"><span>
+			Friday
+		</span></th>
+		
+		{% set ns = namespace(h=8, m=0) %}
+		
+		 {% for row in range(17) %}
+            </tr><tr>
+            <th class="timerange">
+           		<span>
+           			{% set z='' %}
+           			{% if ns.m % 2 == 0 %} {% set z='0' %} {% endif %}
+					{{ (ns.h+ns.m)|string+':'+((ns.m%2)*30)|string+z }}
+					{% set ns.m=ns.m+1 %}
+				</span>
+			</th>
+			{% for row in range(5) %}
+				<td class="calElement">&nbsp;</td>
+			{% endfor %}	
+         {% endfor %}		
+</table>
+</span>

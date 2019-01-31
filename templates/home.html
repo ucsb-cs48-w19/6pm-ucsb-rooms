@@ -1,0 +1,63 @@
+{% extends 'layout.html' %} {% block body %}
+
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<!-- Brand -->
+	<a class="navbar-brand" href="/">WhereIsEvery1?</a>
+
+	<!-- Links -->
+	<ul class="navbar-nav">
+		<li class="nav-item"><a class="nav-link"
+			href="/static/aboutUs.html">About Us</a></li>
+	</ul>
+</nav>
+
+
+<div class="inputArea">
+	<div class="titleArea">
+		<h1>WhereIsEvery1?</h1>
+		<h5>Here is a haiku</h5>
+		<p>
+			Give us a building<br>And give us a room number<br>Here is
+			some free space
+		</p>
+	</div>
+	<div class="searchArea">
+		<p>Search For Classrooms</p>
+		<form action="result" autocomplete="off" method="GET">
+			<p>
+				<p>Building</p><br /> <span class="myarrow"><input
+					onClick="this.select();" class="inputField" type="text"
+					maxlength="20" list="buildingList" name="Building" /></span>
+
+				<datalist id="buildingList">
+					<option> building junk really </option>
+				</datalist>
+			</p>
+<!-- 			<p> -->
+<!-- 				Room Number<br /> <input onClick="this.select();" -->
+<!-- 					class="inputField" type="text" -->
+<!-- 					list="rooms" autofocus="true" value="" name="Room" /> -->
+<!-- 				<datalist id="rooms"> -->
+<!-- 					<option> room junk really </option> -->
+<!-- 				</datalist> -->
+<!-- 			</p> -->
+			<p>
+				<select id="dayList">
+					<option selected value="TODAY">Today</option>
+					<option value="M">Monday</option>
+					<option value="T">Tuesday</option>
+					<option value="W">Wednesday</option>
+					<option value="R">Thursday</option>
+					<option value="F">Friday</option>
+					<option value="S">Saturday</option>
+					<option value="SU">Sunday</option>
+				</select>
+			</p>
+			<p>
+				<input type="submit" value="Submit" />
+			</p>
+		</form>
+	</div>
+</div>
+{% endblock %}
