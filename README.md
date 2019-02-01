@@ -8,9 +8,14 @@ Find a nice place to study, meet, utilize space within the school all in one app
 This web app scrapes the course schedules at UCSB and then allows a user to search for an available room. This means that people can easily find space to meet up or study, and know how long a classroom is empty.
 
 **For Users:**
-Use link - [https://ucsb-cs56-where-is-every1.herokuapp.com/](https://ucsb-cs56-where-is-every1.herokuapp.com/)
+Use link - [https://ucsb-rooms.herokuapp.com/](https://ucsb-rooms.herokuapp.com/)
+
+Old Project link using Java - [https://ucsb-cs56-where-is-every1.herokuapp.com](https://ucsb-cs56-where-is-every1.herokuapp.com)
 
 **For Developers:**
+
+This project uses the Flask framework.
+
 Use the following steps:
 
 ## Installation
@@ -24,6 +29,7 @@ Click(7.0)
 Flask(1.0.2)
 Flask-Migrate(2.3.1)
 Flask-Script(2.0.6)
+Flask-WTF(0.14.2)
 Flask-SQLAlchemy(2.3.2)
 gunicorn(19.9.0)
 itsdangerous(1.1.0)
@@ -48,6 +54,16 @@ Werkzeug(0.14.1)
 
 `pip3 install selenium`
 
+And so on, for any dependancy which is not installed.
+
 ## **Functionality**
 
-For users use the link above.
+To deploy to heroku, you will need to set up a heroku remote. 
+First, make sure you have the heroku CLI installed, then run the command:
+heroku git:remote -a ucsb-rooms
+
+For users use the link above to see the app running. 
+
+## **Running Locally**
+
+For developers, after cloning the repo and installing dependancies, run python3 ./app.py to start the project locally.
