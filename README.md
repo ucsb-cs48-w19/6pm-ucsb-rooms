@@ -54,7 +54,7 @@ Werkzeug(0.14.1)
 
 `pip3 install selenium`
 
-And so on, for any dependancy which is not installed.
+Continue to pip3 install each dependancy listed above in the previous row until they are all satisfied. You can check pip3 list to see what is already installed. Install flask first, which will include many of the other items automatically. 
 
 ## **Functionality**
 
