@@ -60,6 +60,7 @@ Continue to pip3 install each dependancy listed above in the previous row until 
 
 ## **Functionality**
 **Note you cannot deploy to the below herokuAPP unless you have logged in at heroku, and are a collborator on the HerokuAPP**
+
 To deploy to heroku, you will need to set up a heroku remote. 
 First, make sure you have the heroku CLI installed, then run the command:
 heroku git:remote -a ucsb-rooms
