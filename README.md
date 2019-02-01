@@ -59,7 +59,7 @@ Werkzeug(0.14.1)
 Continue to pip3 install each dependancy listed above in the previous row until they are all satisfied. You can check pip3 list to see what is already installed. Install flask first, which will include many of the other items automatically. 
 
 ## **Functionality**
-
+**Note you cannot deploy to the below herokuAPP unless you have logged in at heroku, and are a collborator on the HerokuAPP**
 To deploy to heroku, you will need to set up a heroku remote. 
 First, make sure you have the heroku CLI installed, then run the command:
 heroku git:remote -a ucsb-rooms
@@ -68,4 +68,4 @@ For users use the link above to see the app running.
 
 ## **Running Locally**
 
-For developers, after cloning the repo and installing dependancies, run python3 ./app.py to start the project locally.
+For developers, after cloning the repo and installing dependancies, run command "**python3 ./app.py**" to start the project locally.
