@@ -24,6 +24,8 @@ Use the following steps:
 
 python3, pip3, selenium, flask
 
+Deploying requiremements and versions listed below. The version doesn't matter that much, as long as some version is installed. These requirements can be found in requirements.txt.
+
 alembic(1.0.7)
 Click(7.0)
 Flask(1.0.2)
