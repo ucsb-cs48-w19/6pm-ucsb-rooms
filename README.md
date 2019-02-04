@@ -2,7 +2,7 @@
 
 ## Summary
 
-Find a nice place to study, meet, and utilize space within UCSB all in one app.
+Find a nice place to study, meet, and utilize space at UCSB all in one app.
 
 
 This web app scrapes the course schedules at UCSB and then allows a user to search for an available room. This means that people can easily find space to meet up or study, and know how long a classroom is empty.
