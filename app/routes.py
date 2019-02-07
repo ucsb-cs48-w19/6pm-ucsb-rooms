@@ -32,6 +32,7 @@ def result():
            db.session.commit()
            buildingList= []
            try:
+               #
                 buildingList=Building.query.all()
               # allBuildings = jsonify([e.serialize() for e in buildingList])
                 for e in buildingList:
