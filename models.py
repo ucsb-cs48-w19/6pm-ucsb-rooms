@@ -4,8 +4,10 @@ from app import db
 class Building(db.Model):
     __tablename__ = "building"
 
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    room = db.Column(db.list)
 
     def __repr__(self):
         return "<Building: {}>".format(self.name)
