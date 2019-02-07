@@ -13,7 +13,14 @@
 
 	<div class="messageArea">
 		<h1>Result</h1>
-		
+		<p> {% for building in buildingList %}
+			<tr>
+				 <th> {{ building.name }}: </th>
+			</tr>
+	 {% endfor %}
+	 
+		<p> {{ allBuildings }}</p>
+		<p> {{ table }}</p>
 		<table>
          {% for key, value in result.items() %}
             <tr>
@@ -23,12 +30,12 @@
          {% endfor %}
 
         </table>
-		
+
 		<a href="/">Search for another room</a>
-	
+
 		{% include 'calendar.html' %}
-	
+
 	</div>
-	
-	
+
+
 {% endblock %}

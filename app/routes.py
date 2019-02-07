@@ -1,6 +1,10 @@
-from flask import render_template, request
+from flask import render_template, request, jsonify
 
 from app import app
+
+from app import db
+
+from models import Building
 
 from app.forms import LoginForm
 
@@ -18,7 +22,28 @@ def result():
       return render_template("result.html", result=result)
    elif request.method == 'GET':
        result = request.args
-       return render_template("result.html", result=result)
+       name=request.args.get('Building')
+       allBuildings= ""
+       try:
+           building=Building(
+               name=name
+           )
+           db.session.add(building)
+           db.session.commit()
+           buildingList= []
+           try:
+                buildingList=Building.query.all()
+              # allBuildings = jsonify([e.serialize() for e in buildingList])
+                for e in buildingList:
+                  allBuildings+= e.name + " "
+           except Exception as e:
+       	    return( "getall failed" , str(e))
+           #return "hi"
+           print (allBuildings)
+           return render_template("result.html", result=result, table="Building added. building id={}".format(building.id), buildingList=buildingList)
+       except Exception as e:
+           return(str(e))
+
 
 @app.route("/add")
 def add_building():
@@ -38,6 +63,8 @@ def add_building():
 def get_all():
     try:
         building=Building.query.all()
+        allBuildings = jsonify([e.serialize() for e in building])
+        print (allBuildings)
         return  jsonify([e.serialize() for e in building])
     except Exception as e:
 	    return(str(e))
