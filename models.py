@@ -1,25 +1,51 @@
 from app import db
 
-class Book(db.Model):
-    __tablename__ = 'books'
+
+class Building(db.Model):
+    __tablename__ = "building"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String())
-    author = db.Column(db.String())
-    published = db.Column(db.String())
-
-    def __init__(self, name, author, published):
-        self.name = name
-        self.author = author
-        self.published = published
+    name = db.Column(db.String)
 
     def __repr__(self):
-        return '<id {}>'.format(self.id)
+        return "<Building: {}>".format(self.name)
+
+    def __init__(self, name):
+        self.name = name
+
 
     def serialize(self):
         return {
             'id': self.id,
             'name': self.name,
-            'author': self.author,
-            'published':self.published
-        }
+            }
+
+
+class Room(db.Model):
+    """"""
+    __tablename__ = "room"
+
+    id = db.Column(db.Integer, primary_key=True)
+    roomnumber = db.Column(db.String)
+    ranges = db.Column(db.String)
+    room_type = db.Column(db.String)
+
+    building_id = db.Column(db.Integer, db.ForeignKey("building.id"))
+    building = db.relationship("Building", backref=db.backref(
+        "room", order_by=id), lazy=True)
+
+    def __init__(self, name, roomnumber, ranges, room_type):
+        self.name = name
+        self.roomnumber= roomnumber
+        self.ranges= ranges
+        self.room_type = room_type
+
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'roomnumber': self.roomnumber,
+            'ranges': self.ranges,
+            'room_type': self.room_type
+            }

@@ -8,5 +8,5 @@ app.config.from_object(Config)
 #app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-from models import Book
+from models import Room, Building
 from app import routes
