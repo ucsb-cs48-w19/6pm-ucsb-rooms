@@ -1,7 +1,8 @@
 from flask import Flask,request
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
-import os
+#from asn1crypto._ffi import null
+#import os
 
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 app.config.from_object(Config)
@@ -13,3 +14,13 @@ from app import routes
 
 # This line will force create the database. For local testing.
 #db.create_all()
+
+# Setup some test rooms and buildings.
+#print(help(Building.query.filter_by(name='HFH')))
+
+if (len(Building.query.filter_by(name='HFH').all()) == 0):
+    b1 = Building(name='HFH')
+    db.session.add(b1)
+    r1 = Room('9001','3:00-6:00pm', 'trashy_room_standard',b1.id)
+    db.session.add(r1)
+    db.session.commit();

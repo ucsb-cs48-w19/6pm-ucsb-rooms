@@ -25,11 +25,11 @@ def result():
        name=request.args.get('Building')
        allBuildings= ""
        try:
-           building=Building(
-               name=name
-           )
-           db.session.add(building)
-           db.session.commit()
+           #print(Building.query.all())
+           building = Building.query.filter_by(name=name).first()
+           #building=Building(name=name)
+           #db.session.add(building)
+           #db.session.commit()
            buildingList= []
            try:
                 buildingList=Building.query.all()
