@@ -10,3 +10,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 from models import Room, Building
 from app import routes
+
+# This line will force create the database. For local testing.
+#db.create_all()
