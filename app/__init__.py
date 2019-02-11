@@ -22,8 +22,8 @@ if (len(Building.query.filter_by(name='HFH').all()) == 0):
     print("CREATING NEW BUILDING")
     b1 = Building(name='HFH')
     db.session.add(b1)
-    db.session.commit();
+    db.session.commit()
     print(b1.id)
-    r1 = Room(roomnumber='9001',ranges='3:00-6:00pm',room_type='trashy_room_standard',building_id=b1.id)
+    r1 = Room(roomnumber='9001',ranges='3:00-6:00pm',room_type='trashy_room_standard', building_id=b1.id)
     db.session.add(r1)
-    db.session.commit();
+    db.session.commit()

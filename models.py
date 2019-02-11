@@ -1,6 +1,5 @@
 from app import db
 
-
 class Building(db.Model):
     __tablename__ = "building"
 

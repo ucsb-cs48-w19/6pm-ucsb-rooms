@@ -32,7 +32,7 @@ def result():
              building = Building.query.filter_by(name=name).first()
              rooms = []
              if (building != None):
-                rooms = Room.query.all()
+                rooms = building.rooms
              else:
                  return render_template("home.html", placeholder='Invalid Building')
                  
