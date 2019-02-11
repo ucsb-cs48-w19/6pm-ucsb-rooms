@@ -30,6 +30,7 @@ def result():
             # print(Building.query.first().rooms)
            
              building = Building.query.filter_by(name=name).first()
+             print("We got the building:",name,". It look like:",building)
              rooms = []
              if (building != None):
                 rooms = building.rooms
