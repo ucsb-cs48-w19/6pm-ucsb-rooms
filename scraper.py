@@ -10,8 +10,6 @@ import re
 #SCROLL TO THE BOTTOM FOR TIPS ON USING THE SCRAPER
 #SEE COMMENTS AT THE BOTTOM
 
-
-
 class Time:
         
         #A Class Time has a starting time and an ending time (string, i.e. "12:50pm")
@@ -134,14 +132,14 @@ class Scraper(object):
     
     def __init__(self):
         self.options = Options() 
-        self.options.add_argument("--headless")  #Commented out for testing purposes
+        #self.options.add_argument("--headless")  #Commented out for testing purposes
         self.driver = webdriver.Chrome(executable_path=os.path.abspath('chromedriver'),   options=self.options)
         self.driver.get("https://my.sa.ucsb.edu/public/curriculum/coursesearch.aspx")
         assert "Curriculum Search" in self.driver.title
         self.buildings={}
         
-    
-            
+        
+        
     
     
             
@@ -187,7 +185,7 @@ class Scraper(object):
             #Need to parse Building from Room number
             building_number = self.driver.find_element_by_xpath("//*[@class='gridview']/tbody/tr["+str(index)+"]/td[9]").text
             
-            #print("\n",building_number, days, times)
+            print("\n",building_number, days, times)
             building, room=self.parse_room_building(building_number)
             
             
@@ -240,8 +238,8 @@ class Scraper(object):
 #   (This takes about 15 mins to run)
 #   i.e.
         
-scrape=Scraper()
-scrape.iterateSubjects()
+#scrape=Scraper()
+#scrape.iterateSubjects()
 
 #for building in scrape.getBuildings():    
 #    for room in scrape.getBuildings().get(building).getRooms():
