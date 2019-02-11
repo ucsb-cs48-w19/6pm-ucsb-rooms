@@ -37,9 +37,9 @@ class Room(db.Model):
 #        "room", order_by=id), lazy=True)
 
     def __repr__(self):
-        return "<Room is: {}, Name is {}>".format(self.roomnumber, self.owning_building.name)
+        return "Room is: {}, Building is: {}, Time Ranges are: {}".format(self.roomnumber, self.owning_building.name, self.ranges)
 
-    def __init__(self,roomnumber, ranges, room_type, building_id):
+    def __init__(self, roomnumber, ranges, room_type, building_id):
         self.roomnumber = roomnumber
         self.ranges = ranges
         self.room_type = room_type
@@ -53,4 +53,4 @@ class Room(db.Model):
             'room_type': self.room_type
             }
     def add_timerange(self, range):
-        ranges += range;
+        ranges += range

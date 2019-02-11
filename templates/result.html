@@ -13,14 +13,15 @@
 
 	<div class="messageArea">
 		<h1>Result</h1>
-		<p> {% for building in buildingList %}
+		<h2> You searched for: {{ result[0] }} </h2>
+		<p> 
+		{% for room in rooms %}
 			<tr>
-				 <th> {{ building.name }}: </th>
+				 <th> {{ room }} <br> </th>
 			</tr>
-	 {% endfor %}
-	 
-		<p> {{ allBuildings }}</p>
-		<p> {{ table }}</p>
+		{% endfor %}
+	 	</p>
+	 	
 		<table>
          {% for key, value in result.items() %}
             <tr>

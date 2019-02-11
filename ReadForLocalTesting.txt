@@ -1,0 +1,5 @@
+To test out this project with the database, there are several steps, listed below:
+1. Get the credentials to the heroku repo.
+2. Use the command: export DATABASE_URL='myHerokuCrednetials'
+3. Make sure to run the migrateDatabase.sh script, if your database hasn't been setup based on the models.py.
+4. Now you can run locally, connected to the heroku database.
