@@ -151,7 +151,19 @@ class Scraper(object):
         return self.buildings    
     
     
-    
+    def iterateAnthropology(self):
+
+        si = Select(self.driver.find_element_by_id("ctl00_pageContent_courseList"))
+        print("\nNOTE: Takes about 1 minunte to scrape Anthropology list of data")
+
+        num =len(si.options)
+
+        s1=Select(self.driver.find_element_by_id("ctl00_pageContent_courseList"))
+        s1.select_by_index(0)
+        self.driver.find_element_by_name("ctl00$pageContent$searchButton").click()
+
+        self.readSubjectInfo()  #Commented out for testing purposes
+        self.driver.close()    
     
       
     def iterateSubjects(self):
@@ -239,10 +251,10 @@ class Scraper(object):
 #   create a scraper object and build the the temporary list of data  
 #   (This takes about 15 mins to run)
 #   i.e.
-        
-scrape=Scraper()
-scrape.iterateSubjects()
-
+#        
+#scrape=Scraper()
+#scrape.iterateAnthropology()
+#
 #for building in scrape.getBuildings():    
 #    for room in scrape.getBuildings().get(building).getRooms():
 #        for day in scrape.getBuildings().get(building).getRooms().get(room).getTimes():
