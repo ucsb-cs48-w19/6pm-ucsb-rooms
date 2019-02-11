@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import Select
 import re
+import sys
 
 
 #SCROLL TO THE BOTTOM FOR TIPS ON USING THE SCRAPER
@@ -132,8 +133,14 @@ class Scraper(object):
     
     def __init__(self):
         self.options = Options() 
-        #self.options.add_argument("--headless")  #Commented out for testing purposes
-        self.driver = webdriver.Chrome(executable_path=os.path.abspath('chromedriver'),   options=self.options)
+        self.options.add_argument("--headless")  #Commented out for testing purposes
+        #self.driver = webdriver.Chrome(executable_path=os.path.abspath('chromedriver'),   options=self.options)
+        platform = sys.platform
+        
+        if (platform == "linux"):
+            self.driver = webdriver.Chrome(executable_path=os.path.abspath('chromedriver_linux'),   options=self.options)
+        else:
+            self.driver = webdriver.Chrome(executable_path=os.path.abspath('chromedriver_mac'),   options=self.options)
         self.driver.get("https://my.sa.ucsb.edu/public/curriculum/coursesearch.aspx")
         assert "Curriculum Search" in self.driver.title
         self.buildings={}
@@ -149,7 +156,19 @@ class Scraper(object):
         return self.buildings    
     
     
-    
+    def iterateAnthropology(self):
+
+        si = Select(self.driver.find_element_by_id("ctl00_pageContent_courseList"))
+        print("\nNOTE: Takes about 1 minunte to scrape Anthropology list of data")
+
+        num =len(si.options)
+
+        s1=Select(self.driver.find_element_by_id("ctl00_pageContent_courseList"))
+        s1.select_by_index(0)
+        self.driver.find_element_by_name("ctl00$pageContent$searchButton").click()
+
+        self.readSubjectInfo()  #Commented out for testing purposes
+        self.driver.close()    
     
       
     def iterateSubjects(self):
@@ -185,7 +204,7 @@ class Scraper(object):
             #Need to parse Building from Room number
             building_number = self.driver.find_element_by_xpath("//*[@class='gridview']/tbody/tr["+str(index)+"]/td[9]").text
             
-            print("\n",building_number, days, times)
+            #print("\n",building_number, days, times)
             building, room=self.parse_room_building(building_number)
             
             
@@ -237,10 +256,11 @@ class Scraper(object):
 #   create a scraper object and build the the temporary list of data  
 #   (This takes about 15 mins to run)
 #   i.e.
-        
-#scrape=Scraper()
-#scrape.iterateSubjects()
 
+#        
+#scrape=Scraper()
+#scrape.iterateAnthropology()
+#
 #for building in scrape.getBuildings():    
 #    for room in scrape.getBuildings().get(building).getRooms():
 #        for day in scrape.getBuildings().get(building).getRooms().get(room).getTimes():
