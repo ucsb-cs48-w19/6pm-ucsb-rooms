@@ -27,8 +27,9 @@ class Room(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     roomnumber = db.Column(db.String, nullable=False)
-    ranges = db.Column(db.String)
     room_type = db.Column(db.String)
+
+    days = db.relationship('Day', backref='owning_room', lazy=True)
 
     building_id = db.Column(db.Integer, db.ForeignKey("building.id"), nullable=False)
     
@@ -36,11 +37,10 @@ class Room(db.Model):
 #        "room", order_by=id), lazy=True)
 
     def __repr__(self):
-        return "Room is: {}, Building is: {}, Time Ranges are: {}".format(self.roomnumber, self.owning_building.name, self.ranges)
+        return "Room is: {}, Building is: {}".format(self.roomnumber, self.owning_building.name)
 
-    def __init__(self, roomnumber, ranges, room_type, building_id):
+    def __init__(self, roomnumber, room_type, building_id):
         self.roomnumber = roomnumber
-        self.ranges = ranges
         self.room_type = room_type
         self.building_id = building_id
 
@@ -48,8 +48,27 @@ class Room(db.Model):
         return {
             'id': self.id,
             'roomnumber': self.roomnumber,
-            'ranges': self.ranges,
             'room_type': self.room_type
             }
-    def add_timerange(self, range):
-        ranges += range
+        
+class Day(db.Model):
+    __tablename__ = "day"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    ranges = db.Column(db.String)
+    
+    room_id = db.Column(db.Integer, db.ForeignKey("room.id"), nullable=False)
+    
+    def add_time(self, time):
+        self.ranges = self.ranges + time
+    
+    def __repr__(self):
+        #return "Day is: {}, Time ranges are: {}, Owning room is: {}".format(self.name, self.ranges, self.owning_room.roomnumber)
+        return "On: {} Time ranges are: {}".format(self.name, self.ranges)
+
+    def __init__(self, name, ranges, room_id):
+        self.name = name
+        self.ranges = ranges
+        self.room_id = room_id
+        

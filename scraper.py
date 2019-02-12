@@ -5,12 +5,11 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import Select
 import re
+import sys
 
 
 #SCROLL TO THE BOTTOM FOR TIPS ON USING THE SCRAPER
 #SEE COMMENTS AT THE BOTTOM
-
-
 
 class Time:
         
@@ -28,7 +27,7 @@ class Time:
         def getEnd(self):
                 return self.end
         def toString(self):
-            return "\nClass starts at: " + self.start + " Ends at " + self.end
+            return ":" + self.start + "-" + self.end + ":"
         
 class Day:
     
@@ -79,7 +78,7 @@ class Room:
             self.number=number   
     
     def getNumber(self):
-                return self.number
+            return self.number
             
     def setDays(self, times):
             self.times=times 
@@ -87,7 +86,6 @@ class Room:
     def getDays(self):
                 return self.times  
         
-       
     def addTimesDays(self, days, time):
         days= days.replace(" ", "")
         for day in days:
@@ -135,13 +133,19 @@ class Scraper(object):
     def __init__(self):
         self.options = Options() 
         self.options.add_argument("--headless")  #Commented out for testing purposes
-        self.driver = webdriver.Chrome(executable_path=os.path.abspath('chromedriver'),   options=self.options)
+        #self.driver = webdriver.Chrome(executable_path=os.path.abspath('chromedriver'),   options=self.options)
+        platform = sys.platform
+        
+        if (platform == "linux"):
+            self.driver = webdriver.Chrome(executable_path=os.path.abspath('chromedriver_linux'),   options=self.options)
+        else:
+            self.driver = webdriver.Chrome(executable_path=os.path.abspath('chromedriver_mac'),   options=self.options)
         self.driver.get("https://my.sa.ucsb.edu/public/curriculum/coursesearch.aspx")
         assert "Curriculum Search" in self.driver.title
         self.buildings={}
         
-    
-            
+        
+        
     
     
             
@@ -258,6 +262,7 @@ class Scraper(object):
 #   create a scraper object and build the the temporary list of data  
 #   (This takes about 15 mins to run)
 #   i.e.
+
 #        
 #scrape=Scraper()
 #scrape.iterateAnthropology()
