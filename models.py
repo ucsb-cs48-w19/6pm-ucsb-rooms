@@ -65,7 +65,7 @@ class Day(db.Model):
     
     def __repr__(self):
         #return "Day is: {}, Time ranges are: {}, Owning room is: {}".format(self.name, self.ranges, self.owning_room.roomnumber)
-        return "Time ranges are: {}".format(self.ranges)
+        return "On: {} Time ranges are: {}".format(self.name, self.ranges)
 
     def __init__(self, name, ranges, room_id):
         self.name = name
