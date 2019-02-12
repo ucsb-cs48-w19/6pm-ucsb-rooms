@@ -60,6 +60,9 @@ class Day(db.Model):
     
     room_id = db.Column(db.Integer, db.ForeignKey("room.id"), nullable=False)
     
+    def add_time(self, time):
+        self.ranges = self.ranges + time
+    
     def __repr__(self):
         return "Day is: {}, Time ranges are: {}, Owning room is: {}".format(self.name, self.ranges, self.owning_room.roomnumber)
 

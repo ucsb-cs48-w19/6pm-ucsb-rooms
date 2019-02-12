@@ -27,7 +27,7 @@ class Time:
         def getEnd(self):
                 return self.end
         def toString(self):
-            return "\nClass starts at: " + self.start + " Ends at " + self.end
+            return ":" + self.start + "-" + self.end + ":"
         
 class Day:
     
@@ -78,13 +78,13 @@ class Room:
             self.number=number   
     
     def getNumber(self):
-                return self.number
+            return self.number
             
     def setTimes(self, times):
             self.times=times 
             
     def getTimes(self):
-                return self.times  
+            return self.times  
         
        
     def addTimesDays(self, days, time):
