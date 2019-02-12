@@ -133,7 +133,7 @@ class Scraper(object):
     
     def __init__(self):
         self.options = Options() 
-        self.options.add_argument("--headless")  #Commented out for testing purposes
+        #self.options.add_argument("--headless")  #Commented out for testing purposes
         #self.driver = webdriver.Chrome(executable_path=os.path.abspath('chromedriver'),   options=self.options)
         platform = sys.platform
         

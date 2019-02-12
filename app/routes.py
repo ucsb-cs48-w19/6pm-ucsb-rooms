@@ -39,26 +39,13 @@ def result():
             # print(Building.query.first().rooms)
            
              building = Building.query.filter_by(name=name).first()
-             #print("We got the building:",name,". It look like:",building)
+             print("We got the building:",name,". It look like:",building)
              rooms = []
              if (building != None):
                 rooms = building.rooms
              else:
                  return render_template("home.html", placeholder='Invalid Building')
-                 
-            # building=Building(name=name)
-            # db.session.add(building)
-            # db.session.commit()
-#            buildingList= []
-#            try:
-#                 buildingList=Building.query.all()
-#               # allBuildings = jsonify([e.serialize() for e in buildingList])
-#                 for e in buildingList:
-#                   allBuildings+= e.name + " "
-#            except Exception as e:
-#       	     return( "getall failed" , str(e))
-            # return "hi"
-#            print (allBuildings)
+
              return render_template("result.html", result=result, table="Building added. building id={}".format(building.id), rooms=rooms)
         except Exception as e:
             return(str(e))
