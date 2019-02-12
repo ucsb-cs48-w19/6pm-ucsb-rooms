@@ -8,21 +8,30 @@ from models import Building, Room
 
 from app.forms import LoginForm
 
+from datetime import date
+import calendar
 
 @app.route("/")
 def home():
     #form = LoginForm()
     #return render_template('home.html', form=form)
-    return render_template('home.html', placeholder="Building")
+    buildings = Building.query.all()
+
+    return render_template('home.html', placeholder="Building", buildings=buildings)
 
 
 @app.route('/result', methods=['POST', 'GET'])
 def result():
     if request.method == 'POST':
-        result = request.form
+        result = request.form.to_dict()
         return render_template("result.html", result=result)
     elif request.method == 'GET':
-        result = request.args
+        result = request.args.to_dict()
+        #print("THIS IS THE DIR========",dir(result))
+        if (result.get("Day") == "TODAY"):
+            my_date = date.today()
+            result["Day"] = calendar.day_name[my_date.weekday()][0]
+        #print("RESULTS ARE A: ", help(result))
         name = request.args.get('Building')
         allBuildings = ""
         try:
@@ -30,7 +39,7 @@ def result():
             # print(Building.query.first().rooms)
            
              building = Building.query.filter_by(name=name).first()
-             print("We got the building:",name,". It look like:",building)
+             #print("We got the building:",name,". It look like:",building)
              rooms = []
              if (building != None):
                 rooms = building.rooms

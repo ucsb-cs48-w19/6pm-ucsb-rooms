@@ -32,6 +32,9 @@
 					
 
 				<datalist id="buildingList">
+					{% for building in buildings %}
+				 		<option> {{ building.name }} </option>
+					{% endfor %}
 					<option> HFH </option>
 				</datalist>
 			</p>
@@ -44,7 +47,7 @@
 <!-- 				</datalist> -->
 <!-- 			</p> -->
 			<p>
-				<select id="dayList">
+				<select id="dayList" name="Day">
 					<option selected value="TODAY">Today</option>
 					<option value="M">Monday</option>
 					<option value="T">Tuesday</option>
