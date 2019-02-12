@@ -28,7 +28,19 @@ class Time:
                 return self.end
         def toString(self):
             return ":" + self.start + "-" + self.end + ":"
+
+        def timeStoi(self, input):
+            string=input.split(":")[0]+input.split(":")[1][0:2]
+            number=int(string)
+            if "pm" in input:
+                number=number+1200
+            return number  
         
+        def getStartInt(self):
+                return self.timeStoi(self.start)
+        def getEndInt(self):
+                return self.timeStoi(self.end)
+              
 class Day:
     
     #A class room Day has a list of class times.
@@ -264,17 +276,18 @@ class Scraper(object):
 #   i.e.
 
 #        
-#scrape=Scraper()
-#scrape.iterateAnthropology()
-#
-#for building in scrape.getBuildings():
-#    print("\n",building)
-#    for room in scrape.getRooms(building):
-#        print(room)
-#        for day in scrape.getDays(building, room):
-#            print(day)
-#            for time in scrape.getTimes(building, room, day):
-#                print(time.getStart(), " - ", time.getEnd())  
+scrape=Scraper()
+scrape.iterateAnthropology()
+
+for building in scrape.getBuildings():
+    print("\n",building)
+    for room in scrape.getRooms(building):
+        print(room)
+        for day in scrape.getDays(building, room):
+            print(day)
+            for time in scrape.getTimes(building, room, day):
+                print(time.getStart(), " - ", time.getEnd())  
+                print(time.getStartInt(), " - ", time.getEndInt())
     
     
 
