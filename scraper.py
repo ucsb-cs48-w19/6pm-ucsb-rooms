@@ -81,10 +81,10 @@ class Room:
     def getNumber(self):
                 return self.number
             
-    def setTimes(self, times):
+    def setDays(self, times):
             self.times=times 
             
-    def getTimes(self):
+    def getDays(self):
                 return self.times  
         
        
@@ -148,8 +148,18 @@ class Scraper(object):
     #chrome_options.binary_location = '/Applications/Google Chrome   Canary.app/Contents/MacOS/Google Chrome Canary'    
     
     def getBuildings(self):
-        return self.buildings    
+        return self.buildings
     
+    def getRooms(self, building):
+        b=self.buildings.get(building)
+        return b.rooms
+        
+    
+    def getDays(self, building, room):
+        return self.buildings.get(building).getRooms().get(room).getDays()
+    
+    def getTimes(self, building, room, day):
+        return self.getBuildings().get(building).getRooms().get(room).getDays().get(day).getTimes()    
     
     def iterateAnthropology(self):
 
@@ -212,7 +222,7 @@ class Scraper(object):
                 
             
     def print_class_day(self, building, room, day):
-        self.buildings.get(building).getRooms().get(room).getTimes().get(day[0]).printClassDay()
+        self.buildings.get(building).getRooms().get(room).getDays().get(day[0]).printClassDay()
             
     def parse_room_building(self, building_number):
         
@@ -223,21 +233,18 @@ class Scraper(object):
                 return "invalid", "invalid"
         m= len(building_number)
         
-        
-        if (re.search('[a-zA-Z]', building_number)):
-        #If the string contains a letter, i.e. "PHELP1513" or "GIRV 2123",
-        #Then split the string at the first index of a digit: 
-        #building ="PHELP" room = "1513" 
-        #buidling =""
+        if (re.search(" ", building_number)):
+            
+            if not re.search(" \d", building_number):
+                m= len(building_number)
+            else: 
+                m = re.search(" \d", building_number).start()
+        else:
             if not re.search("\d", building_number):
                 m= len(building_number)
             else: 
                 m = re.search("\d", building_number).start()
             
-        else:
-            #Otherwise Numerical building, i.e. "387 1015"
-            #Split on white space
-            m = re.search(" ", building_number).start()
         building=building_number[ 0 : m ] 
         room=building_number[m:len(building_number)]
         return building, room
@@ -255,12 +262,14 @@ class Scraper(object):
 #scrape=Scraper()
 #scrape.iterateAnthropology()
 #
-#for building in scrape.getBuildings():    
-#    for room in scrape.getBuildings().get(building).getRooms():
-#        for day in scrape.getBuildings().get(building).getRooms().get(room).getTimes():
-#            print("Today's schedule for ", building,room, day)
-#            scrape.print_class_day(building, room, day)  
-  
+#for building in scrape.getBuildings():
+#    print("\n",building)
+#    for room in scrape.getRooms(building):
+#        print(room)
+#        for day in scrape.getDays(building, room):
+#            print(day)
+#            for time in scrape.getTimes(building, room, day):
+#                print(time.getStart(), " - ", time.getEnd())  
     
     
 
