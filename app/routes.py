@@ -44,12 +44,16 @@ def result():
              if (building != None):
                 rooms = building.rooms
              else:
-                 return render_template("home.html", placeholder='Invalid Building')
+                 buildings = Building.query.all()
+                 return render_template("home.html", placeholder='Invalid Building', buildings=buildings)
 
              return render_template("result.html", result=result, table="Building added. building id={}".format(building.id), rooms=rooms)
         except Exception as e:
             return(str(e))
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error.html')
 
 @app.route("/add")
 def add_building():
