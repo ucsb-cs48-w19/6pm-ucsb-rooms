@@ -64,7 +64,8 @@ class Day(db.Model):
         self.ranges = self.ranges + time
     
     def __repr__(self):
-        return "Day is: {}, Time ranges are: {}, Owning room is: {}".format(self.name, self.ranges, self.owning_room.roomnumber)
+        #return "Day is: {}, Time ranges are: {}, Owning room is: {}".format(self.name, self.ranges, self.owning_room.roomnumber)
+        return "Time ranges are: {}".format(self.ranges)
 
     def __init__(self, name, ranges, room_id):
         self.name = name

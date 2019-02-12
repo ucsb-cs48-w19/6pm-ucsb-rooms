@@ -24,6 +24,7 @@ for building in scrape.getBuildings():
     building_object = scrape.getBuildings().get(building)
     b = Building.query.filter_by(name=building_object.getName().rstrip()).first()
     for room in building_object.getRooms():
+        
         room = scrape.getBuildings().get(building).getRooms().get(room)
          
         if (not (room in b.rooms)):

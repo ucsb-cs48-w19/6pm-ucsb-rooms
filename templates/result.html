@@ -17,9 +17,17 @@
 		<p> 
 		{% for room in rooms %}
 			<tr>
-				 <th> {{ room }} <br> </th>
+				 <th> ==={{ room }}=== <br> </th>
+				 
+				 
+				 {% for day in room.days %}
+					<tr>
+				 	<th> {{ day }} <br> </th>
+					</tr>
+				{% endfor %}
 			</tr>
 		{% endfor %}
+		
 	 	</p>
 	 	
 		<table>
