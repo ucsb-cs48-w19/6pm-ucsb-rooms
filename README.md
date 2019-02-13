@@ -61,8 +61,9 @@ Deploying requiremements and versions listed below. The version doesn't matter t
 
 Continue to pip3 install each dependancy listed above in the previous row until they are all satisfied. You can check pip3 list to see what is already installed. Install flask first, which will include many of the other items automatically. 
 
-## **Functionality**
-**Note you cannot deploy to the below herokuAPP unless you have logged in at heroku, and are a collborator on the HerokuAPP**
+## **Using the Heroku Database**
+**Note you cannot do this step unless you are a collaborator on the Heroku app**
+**Skip this step if you are not a collaborator**
 
 To deploy to heroku, you will need to set up a heroku remote. 
 First, make sure you have the heroku CLI installed, then run the command:
@@ -70,9 +71,7 @@ heroku git:remote -a ucsb-rooms
 
 For users use the link above to see the app running. 
 
-## **Running Locally**
 
-For developers, after cloning the repo and installing dependancies, run command "**python3 ./app.py**" to start the project locally.
 
 ## **Building the Database locally**
 We cannot give everyone the database credentials. To build the database locally and run the app follow these steps:
@@ -83,4 +82,8 @@ If you would like to build a smaller version of the database that will take 2-3 
 To build the large database skip this step. To build the smaller one, in file buildDatabase.py, change line 10 from:scrape.iterateSubjects() to scrape.iterateAnthropology()
 3. build the database locally by typing on terminal: python3 buildDatabase.py. 
   This database will be built using SQLite to site.db
-4. Run the app locally using app.py
+
+
+## **Running Locally**
+
+For developers, after cloning the repo and installing dependancies, run command "**python3 ./app.py**" to start the project locally.
