@@ -7,10 +7,10 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    ##SECRET_KEY = 'this-really-needs-to-be-changed'
+    # #SECRET_KEY = 'this-really-needs-to-be-changed'
     # Uncomment this to enable database connection.
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
-
+    #SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
 
 class ProductionConfig(Config):
     DEBUG = False

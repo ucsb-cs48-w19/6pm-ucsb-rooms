@@ -117,7 +117,7 @@ input {
 }
 
 body {
-	background-image: url("/static/background.png");
+	background-image: url("/static/background.webp");
 	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica,
 		Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
 	/* 	background-color: grey; */
