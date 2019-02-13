@@ -21,33 +21,32 @@ Use the following steps:
 ## Installation
 
 **Prerequisites:**
-
-python3, pip3, selenium, flask
-
 Deploying requiremements and versions listed below. The version doesn't matter that much, as long as some version is installed. These requirements can be found in requirements.txt.
 
-astropy(3.1.1)
-alembic(1.0.7)
-Click(7.0)
-Flask(1.0.2)
-Flask-Migrate(2.3.1)
-Flask-Script(2.0.6)
-Flask-WTF(0.14.2)
-Flask-SQLAlchemy(2.3.2)
-gunicorn(19.9.0)
-itsdangerous(1.1.0)
-Jinja2(2.10)
-Mako(1.0.7)
-MarkupSafe(1.1.0)
-psycopg2-binary(2.7.7)
-python-dateutil(2.7.5)
-python-editor(1.0.3)
-selenium(3.141.0)
-six(1.12.0)
-SQLAlchemy(1.2.17)
-Werkzeug(0.14.1)
-urllib3(1.24.1)
-WTForms(2.2.1)
+* python3(3.6.0)
+* pip3(19.0.1)
+* astropy(3.1.1)
+* alembic(1.0.7)
+* Click(7.0)
+* Flask(1.0.2)
+* Flask-Migrate(2.3.1)
+* Flask-Script(2.0.6)
+* Flask-WTF(0.14.2)
+* Flask-SQLAlchemy(2.3.2)
+* gunicorn(19.9.0)
+* itsdangerous(1.1.0)
+* Jinja2(2.10)
+* Mako(1.0.7)
+* MarkupSafe(1.1.0)
+* psycopg2-binary(2.7.7)
+* python-dateutil(2.7.5)
+* python-editor(1.0.3)
+* selenium(3.141.0)
+* six(1.12.0)
+* SQLAlchemy(1.2.17)
+* Werkzeug(0.14.1)
+* urllib3(1.24.1)
+* WTForms(2.2.1)
 
 ## **Installation Steps**
 **On Linux:**
