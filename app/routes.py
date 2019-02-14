@@ -55,8 +55,10 @@ def result():
 def page_not_found(e):
     return render_template('error.html')
 
+
 @app.route('/room', methods=['GET'])
 def room():
+    """Display a specific room. Sytntax is as follows: /room?Building=HSSB&Room=2001A"""
     result = request.args
     name = request.args.get('Building')
     building = Building.query.filter_by(name=name).first()
