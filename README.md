@@ -64,8 +64,6 @@ activate the virtual environment which should have the rest of the installations
 `source env/bin/activate`
 
 
-[\]: <> (Continue to pip3 install each dependancy listed above in the previous row until they are all satisfied. You can check pip3 list to see what is already installed. Install flask first, which will include many of the other items automatically. )
-
 ## **Using the Heroku Database**
 **Note you cannot do this step unless you are a collaborator on the Heroku app**
 **Skip this step if you are not a collaborator**
@@ -76,13 +74,12 @@ In terminal use the command: export DATABASE_URL='credentials'. Replacing 'crede
 
 ## **Building the Database locally**
 We cannot give everyone the database credentials. To build the database locally and run the app follow these steps:
-1. In config.py, comment this line: SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL'] 
-  and uncomment this line: SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
-2. If you want to build the entire database it will take 20-40 minutes. 
+1. If you want to build the entire database it will take 20-40 minutes. 
 If you would like to build a smaller version of the database that will take 2-3 and still give you a lot of function. 
-To build the large database skip this step. To build the smaller one, in file buildDatabase.py, change line 10 from:scrape.iterateSubjects() to scrape.iterateAnthropology()
-3. build the database locally by typing on terminal: python3 buildDatabase.py. 
-  This database will be built using SQLite to site.db
+To build the smaller database skip this step. To build the larger one, in file buildDatabase.py, change line 10 from:scrape.iterateAnthropology() to scrape.iterateSubjects()
+2. build the database locally by typing on terminal: 
+`python3 buildDatabase.py.`
+ This database will be built using SQLite to site.db
 
 
 ## **Running Locally**
