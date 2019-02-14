@@ -55,13 +55,11 @@ Deploying requiremements and versions listed below. The version doesn't matter t
 
 `sudo apt install pip3`
 
-`pip3 install flask`
-
-`pip3 install selenium`
-
-activate the virtual environment which should have the rest of the installations run the command:
-
-`source env/bin/activate`
+1. Fork the repo
+2. Install virtual environment:  `$ pip install virtualenv`
+3. Under your project file: `$ virtualenv venv`
+4. Active virtualenv: `$ source venv/bin/activate`
+5. Install requirements from requirements.txt: `$ pip install -r requirements.txt`
 
 
 ## **Using the Heroku Database**
