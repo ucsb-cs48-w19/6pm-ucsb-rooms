@@ -55,6 +55,27 @@ def result():
 def page_not_found(e):
     return render_template('error.html')
 
+@app.route('/room', methods=['GET'])
+def room():
+    result = request.args
+    name = request.args.get('Building')
+    building = Building.query.filter_by(name=name).first()
+
+    rn = request.args.get('Room')
+    currentRoom = building.rooms[0]
+    
+    room = Room.query.filter(Room.building_id==building.id, Room.roomnumber==" "+rn).first()
+
+    
+#     for room in building.rooms:
+#         if(room.roomnumber.strip() == request.args.get('Room')):
+#             currentRoom = Room
+#             break
+#         
+    #room = building.rooms.__getitem__(request.args.get('Room'))
+    return render_template("room.html", result=result, room=room)
+    
+
 @app.route("/add")
 def add_building():
     name = request.args.get('name')
