@@ -216,23 +216,22 @@ class Scraper(object):
         rowCount= len(self.driver.find_elements_by_xpath("//*[@class='gridview']/tbody/tr"))
         
         for index in range(1, rowCount):
-            if self.driver.find_elements_by_xpath("\\*[@id=\"aspnetForm\"]/table/tbody/tr[3]/td/div/center/table/tbody/tr["+str(index)+"]/td[4]").text != "Canceled":
-                #days already parsed correctly
-                days = self.driver.find_element_by_xpath("//*[@class='gridview']/tbody/tr["+str(index)+"]/td[7]").text
+            #days already parsed correctly
+            days = self.driver.find_element_by_xpath("//*[@class='gridview']/tbody/tr["+str(index)+"]/td[7]").text
                
-               #times will be parsed in the Day Class under the addTime method
-               times = self.driver.find_element_by_xpath("//*[@class='gridview']/tbody/tr["+str(index)+"]/td[8]").text
+            #times will be parsed in the Day Class under the addTime method
+            times = self.driver.find_element_by_xpath("//*[@class='gridview']/tbody/tr["+str(index)+"]/td[8]").text
                
-               #Need to parse Building from Room number
-               building_number = self.driver.find_element_by_xpath("//*[@class='gridview']/tbody/tr["+str(index)+"]/td[9]").text
+            #Need to parse Building from Room number
+            building_number = self.driver.find_element_by_xpath("//*[@class='gridview']/tbody/tr["+str(index)+"]/td[9]").text
                
-               #print("\n",building_number, days, times)
-               building, room=self.parse_room_building(building_number) 
+            #print("\n",building_number, days, times)
+            building, room=self.parse_room_building(building_number) 
                
-               if (building!="invalid"):
-                   if (building not in self.buildings):
-                       self.buildings[building] =Building(building)
-                       self.buildings.get(building).addToRoom(room, days, times) 
+            if (building!="invalid"):
+                if (building not in self.buildings):
+                   self.buildings[building] =Building(building)
+                   self.buildings.get(building).addToRoom(room, days, times) 
                 
                 
                 
@@ -242,33 +241,26 @@ class Scraper(object):
             
     def parse_room_building(self, building_number):
         
-        delimiter = "[a-zA-Z]+\s[0-9]+.|[0-9]+\s[0-9]+"
         invalid_list=["ONLINE", "ON LINE", "T B A","NO ROOM", "TBA" ,"", "ENGR2"]
         
-        if any(invalid in building_number for invalid in invalid_list):
+        if building_number in invalid_list:
                 return "invalid", "invalid"
-        if re.search(delimiter, buildding_number):
-            return re.split("\\s+", building_number)
-        else:
-            return re.findall(r"[^\W\d_]+|d+", building_number)
-
-       # m= len(building_number)
+        m= len(building_number)
         
-       # if (re.search(" ", building_number)):
+        if (re.search(" ", building_number)):
+            if not re.search(" \d", building_number):
+                m= len(building_number)
+            else: 
+                m = re.search(" \d", building_number).start()
+        else:
+            if not re.search("\d", building_number):
+                m= len(building_number)
+            else: 
+                m = re.search("\d", building_number).start()
             
-        #    if not re.search(" \d", building_number):
-         #       m= len(building_number)
-         #   else: 
-          #      m = re.search(" \d", building_number).start()
-      #  else:
-        #    if not re.search("\d", building_number):
-         #       m= len(building_number)
-          #  else: 
-           #     m = re.search("\d", building_number).start()
-            
-       # building=building_number[ 0 : m ] 
-        #room=building_number[m:len(building_number)]
-        #return building, room
+        building=building_number[ 0 : m ] 
+        room=building_number[m:len(building_number)]
+        return building, room
             
             
 #To Use Scraper, 
