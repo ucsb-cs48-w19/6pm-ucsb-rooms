@@ -64,13 +64,9 @@ Continue to pip3 install each dependancy listed above in the previous row until 
 ## **Using the Heroku Database**
 **Note you cannot do this step unless you are a collaborator on the Heroku app**
 **Skip this step if you are not a collaborator**
-
-To deploy to heroku, you will need to set up a heroku remote. 
-First, make sure you have the heroku CLI installed, then run the command:
-heroku git:remote -a ucsb-rooms
-
-For users use the link above to see the app running. 
-
+Go to Heroku, login, and click on this app. Click on the resources tab than click on Heroku Postgres. Click on the settings tab.
+Click on view credentials, then copy the URI.
+In terminal use the command: export DATABASE_URL='credentials'. Replacing 'credentials' with the URI
 
 
 ## **Building the Database locally**
@@ -86,4 +82,13 @@ To build the large database skip this step. To build the smaller one, in file bu
 
 ## **Running Locally**
 
-For developers, after cloning the repo and installing dependancies, run command "**python3 ./app.py**" to start the project locally.
+For developers, after cloning the repo and installing dependancies, run command "**python3 app.py**" to start the project locally.
+
+## **Deploying to a new Heroku app**
+1. Install heroku CLI
+2. Login
+3. Set up a heroku remote by running the command: heroku git:remote -a "name of app"
+4. do a git add,commit,push to the heroku app. For the push command use: git push heroku "your current branch":master
+5. configure the heroku app to a heroku database by running this command: heroku addons:create heroku-postgresql:hobby-dev
+6. migrate the database over to heroku using the shell script. Run the command ./migrateDatabase.sh
+7. run the app on heroku and enjoy: do this by going to the app on Heroku and hitting deploy
