@@ -78,7 +78,8 @@ We cannot give everyone the database credentials. To build the database locally 
 If you would like to build a smaller version of the database that will take 2-3 and still give you a lot of function. 
 To build the smaller database skip this step. To build the larger one, in file buildDatabase.py, change line 10 from:scrape.iterateAnthropology() to scrape.iterateSubjects()
 2. build the database locally by typing on terminal: 
-`python3 buildDatabase.py.`
+`python3 buildDatabase.py`
+
  This database will be built using SQLite to site.db
 
 
