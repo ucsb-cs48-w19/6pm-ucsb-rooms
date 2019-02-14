@@ -85,7 +85,7 @@ To build the smaller database skip this step. To build the larger one, in file b
 
 ## **Running Locally**
 
-For developers, after cloning the repo and installing dependancies, run command `**python3 app.py**` to start the project locally.
+For developers, after cloning the repo and installing dependancies, run command `python3 app.py` to start the project locally.
 Go to the url http://0.0.0.0:5000/
 
 ## **Deploying to a new Heroku app**
