@@ -58,7 +58,7 @@ Deploying requiremements and versions listed below. The version doesn't matter t
 1. Fork the repo
 2. Install virtual environment:  `$ pip install virtualenv`
 3. Under your project file: `$ virtualenv venv`
-4. Active virtualenv: `$ source venv/bin/activate`
+4. Active virtualenv: `$ source env/bin/activate`
 5. Install requirements from requirements.txt: `$ pip install -r requirements.txt`
 
 
