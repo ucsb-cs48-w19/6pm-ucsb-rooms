@@ -59,7 +59,11 @@ Deploying requiremements and versions listed below. The version doesn't matter t
 
 `pip3 install selenium`
 
-Continue to pip3 install each dependancy listed above in the previous row until they are all satisfied. You can check pip3 list to see what is already installed. Install flask first, which will include many of the other items automatically. 
+activate the virtual environment which should have the rest of the installations run the command:
+source env/bin/activate
+
+
+[comment] <> (Continue to pip3 install each dependancy listed above in the previous row until they are all satisfied. You can check pip3 list to see what is already installed. Install flask first, which will include many of the other items automatically. )
 
 ## **Using the Heroku Database**
 **Note you cannot do this step unless you are a collaborator on the Heroku app**
