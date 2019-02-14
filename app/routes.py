@@ -22,35 +22,6 @@ def home():
 
 @app.route('/result', methods=['POST', 'GET'])
 def result():
-<<<<<<< HEAD
-   if request.method == 'POST':
-      result = request.form
-      return render_template("result.html", result=result)
-   elif request.method == 'GET':
-       result = request.args
-       name=request.args.get('Building')
-       allBuildings= ""
-       try:
-           building=Building(
-               name=name
-           )
-           db.session.add(building)
-           db.session.commit()
-           buildingList= []
-           try:
-               #
-                buildingList=Building.query.all()
-              # allBuildings = jsonify([e.serialize() for e in buildingList])
-                for e in buildingList:
-                  allBuildings+= e.name + " "
-           except Exception as e:
-       	    return( "getall failed" , str(e))
-           #return "hi"
-           print (allBuildings)
-           return render_template("result.html", result=result, table="Building added. building id={}".format(building.id), buildingList=buildingList)
-       except Exception as e:
-           return(str(e))
-=======
     if request.method == 'POST':
         result = request.form.to_dict()
         return render_template("result.html", result=result)
@@ -66,7 +37,7 @@ def result():
         try:
             # print(Room.query.first())
             # print(Building.query.first().rooms)
-           
+
              building = Building.query.filter_by(name=name).first()
              print("We got the building:",name,". It look like:",building)
              rooms = []
@@ -79,7 +50,6 @@ def result():
              return render_template("result.html", result=result, table="Building added. building id={}".format(building.id), rooms=rooms)
         except Exception as e:
             return(str(e))
->>>>>>> ade8e0326c6e2d948c3a454030396e72f52fe83b
 
 @app.errorhandler(404)
 def page_not_found(e):

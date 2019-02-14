@@ -5,14 +5,9 @@ class Building(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True)
-<<<<<<< HEAD
-    name = db.Column(db.String)
-    room = db.Column(db.list)
-=======
     name = db.Column(db.String(32), unique=True, nullable=False)
 
     rooms = db.relationship('Room', backref='owning_building', lazy=True)
->>>>>>> ade8e0326c6e2d948c3a454030396e72f52fe83b
 
     def __repr__(self):
         return "<Building: {}>".format(self.name)
@@ -38,7 +33,7 @@ class Room(db.Model):
     days = db.relationship('Day', backref='owning_room', lazy=True)
 
     building_id = db.Column(db.Integer, db.ForeignKey("building.id"), nullable=False)
-    
+
 #    building = db.relationship("Building", backref=db.backref(
 #        "room", order_by=id), lazy=True)
 
@@ -56,19 +51,19 @@ class Room(db.Model):
             'roomnumber': self.roomnumber,
             'room_type': self.room_type
             }
-        
+
 class Day(db.Model):
     __tablename__ = "day"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     ranges = db.Column(db.String)
-    
+
     room_id = db.Column(db.Integer, db.ForeignKey("room.id"), nullable=False)
-    
+
     def add_time(self, time):
         self.ranges = self.ranges + time
-    
+
     def __repr__(self):
         #return "Day is: {}, Time ranges are: {}, Owning room is: {}".format(self.name, self.ranges, self.owning_room.roomnumber)
         return "On: {} Time ranges are: {}".format(self.name, self.ranges)
@@ -77,4 +72,3 @@ class Day(db.Model):
         self.name = name
         self.ranges = ranges
         self.room_id = room_id
-        
