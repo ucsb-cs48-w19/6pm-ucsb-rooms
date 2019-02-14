@@ -7,7 +7,8 @@ from astropy.units import day
 #db.create_all()
 
 scrape=Scraper()
-scrape.iterateSubjects()
+#scrape.iterateSubjects()
+scrape.iterateAnthropology()
 print("====THE SCRAPER FINISHED RUNNING, NOW WE'RE GONNA VIEW THE OBJECT STORED RESULTS=====")
 
 for building in scrape.getBuildings():
@@ -45,8 +46,8 @@ for building in scrape.getBuildings():
                 r_id = r.id
                 break
         
-        for day in scrape.getBuildings().get(building).getRooms().get(room).getTimes():
-            times = scrape.getBuildings().get(building).getRooms().get(room).getTimes().get(day).getTimes()
+        for day in scrape.getBuildings().get(building).getRooms().get(room).getDays():
+            times = scrape.getBuildings().get(building).getRooms().get(room).getDays().get(day).getTimes()
             d = Day(name=day,ranges="",room_id=r_id)
             print("Adding day:",day)
             for time in times:
@@ -62,6 +63,6 @@ db.session.commit()
 
 # for building in scrape.getBuildings():    
 #     for room in scrape.getBuildings().get(building).getRooms():
-#         for day in scrape.getBuildings().get(building).getRooms().get(room).getTimes():
+#         for day in scrape.getBuildings().get(building).getRooms().get(room).getDays():
 #             print("Today's schedule for ", building,room, day)
 #             scrape.print_class_day(building, room, day)  
