@@ -15,20 +15,14 @@
 		<h1>Result</h1>
 		<h2> You searched for: {{ result.get("Building") }} </h2>
 		<p> 
-		{% for room in rooms %}
-			<tr>
-				 <th> ==={{ room }}=== <br> </th>
+			 <th> ==={{ room }}=== <br> </th>	 
 				 
-				 
-				 {% for day in room.days %}
-				 	{% if day.name == result.get("Day") %}
-						<tr>
-					 	<th> {{ day }} <br> </th>
-						</tr>
-					{% endif %}
-				{% endfor %}
-			</tr>
-		{% endfor %}
+			 {% for day in room.days %}
+				<tr>
+				<th> {{ day }} <br> </th>
+				</tr>
+			{% endfor %}
+
 		
 	 	</p>
 	 	
@@ -44,7 +38,7 @@
 
 		<a href="/">Search for another room</a>
 
-<!--		{% include 'calendar.html' %} -->
+		{% include 'calendar.html' %}
 
 	</div>
 

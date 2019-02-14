@@ -107,3 +107,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# local sqlite database for testing doesn't need to be on github.
+site.db
