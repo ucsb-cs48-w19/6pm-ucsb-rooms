@@ -89,8 +89,9 @@ Go to the url http://0.0.0.0:5000/
 ## **Deploying to a new Heroku app**
 1. Install heroku CLI
 2. Login
-3. Set up a heroku remote by running the command: heroku git:remote -a "name of app"
-4. do a git add,commit,push to the heroku app. For the push command use: git push heroku "your current branch":master
-5. configure the heroku app to a heroku database by running this command: heroku addons:create heroku-postgresql:hobby-dev
-6. migrate the database over to heroku using the shell script. Run the command ./migrateDatabase.sh
-7. run the app on heroku and enjoy: do this by going to the app on Heroku and hitting deploy
+3. Create a Heroku app
+4. Set up a heroku remote by running the command: heroku git:remote -a "name of app"
+5. do a git add,commit,push to the heroku app. For the push command use: git push heroku "your current branch":master
+6. configure the heroku app to a heroku database by running this command: heroku addons:create heroku-postgresql:hobby-dev
+7. migrate the database over to heroku using the shell script. Run the command ./migrateDatabase.sh
+8. run the app on heroku and enjoy: do this by going to the app on Heroku and hitting deploy
