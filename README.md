@@ -59,7 +59,7 @@ Deploying requiremements and versions listed below. The version doesn't matter t
 2. Install virtual environment:  `$ pip install virtualenv`
 3. Under your project file: `$ virtualenv venv`
 4. Active virtualenv: `$ source venv/bin/activate`
-5. Install requirements from requirements.txt: `$ pip install -r requirements.txt`
+5. Install requirements from requirements.txt: `$ pip3 install -r requirements.txt`
 
 
 ## **Using the Heroku Database**
