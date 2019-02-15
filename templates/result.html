@@ -17,8 +17,9 @@
 		<p> 
 		{% for room in rooms %}
 			<tr>
-				 <th> ==={{ room }}=== <br> </th>
-				 
+				 <th> <a href="/room?BuildingID={{ building.id }}&Room={{ room.roomnumber }}&Day={{ result.get('Day') }}">
+				 Room: {{ room.roomnumber }} on day: {{ result.get('Day') }}
+				 </a> <br> </th>
 				 
 				 {% for day in room.days %}
 				 	{% if day.name == result.get("Day") %}
@@ -42,7 +43,7 @@
 
         </table>
 
-		<a href="/">Search for another room</a>
+		<a href="/">Search for another building</a>
 
 <!--		{% include 'calendar.html' %} -->
 

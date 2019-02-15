@@ -30,7 +30,12 @@ def result():
         #print("THIS IS THE DIR========",dir(result))
         if (result.get("Day") == "TODAY"):
             my_date = date.today()
-            result["Day"] = calendar.day_name[my_date.weekday()][0]
+            result["Day"] = calendar.day_name[my_date.weekday()]
+            
+            if (result["Day"] == "Thursday"):
+                result["Day"] = "R"
+            else:
+               result["Day"][0] 
         #print("RESULTS ARE A: ", help(result))
         name = request.args.get('Building')
         allBuildings = ""
@@ -47,7 +52,7 @@ def result():
                  buildings = Building.query.all()
                  return render_template("home.html", placeholder='Invalid Building', buildings=buildings)
 
-             return render_template("result.html", result=result, table="Building added. building id={}".format(building.id), rooms=rooms)
+             return render_template("result.html", result=result, building=building, rooms=rooms)
         except Exception as e:
             return(str(e))
 
@@ -60,14 +65,13 @@ def page_not_found(e):
 def room():
     """Display a specific room. Sytntax is as follows: /room?Building=HSSB&Room=2001A"""
     result = request.args
-    name = request.args.get('Building')
-    building = Building.query.filter_by(name=name).first()
+    id = int(request.args.get('BuildingID'))
+    #building = Building.query.filter_by(name=name).first()
 
     rn = request.args.get('Room')
-    currentRoom = building.rooms[0]
     
-    room = Room.query.filter(Room.building_id==building.id, Room.roomnumber==" "+rn).first()
-
+    room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
+    print(room)
     
 #     for room in building.rooms:
 #         if(room.roomnumber.strip() == request.args.get('Room')):

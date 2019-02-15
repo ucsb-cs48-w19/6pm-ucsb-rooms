@@ -27,7 +27,7 @@ class Time:
         def getEnd(self):
                 return self.end
         def toString(self):
-            return ":" + self.start + "-" + self.end + ":"
+            return self.__repr__()
 
         def timeStoi(self, input):
             string=input.split(":")[0]+input.split(":")[1][0:2]
@@ -36,11 +36,14 @@ class Time:
                 number=number+1200
             return number  
         
+        def __repr__(self):
+            return "#" + self.start + "-" + self.end + "#"
+        
         def getStartInt(self):
                 return self.timeStoi(self.start)
         def getEndInt(self):
                 return self.timeStoi(self.end)
-              
+            
 class Day:
     
     #A class room Day has a list of class times.
@@ -227,12 +230,11 @@ class Scraper(object):
                
             #print("\n",building_number, days, times)
             building, room=self.parse_room_building(building_number) 
-               
+            
             if (building!="invalid"):
                 if (building not in self.buildings):
-                   self.buildings[building] =Building(building)
-                   self.buildings.get(building).addToRoom(room, days, times) 
-                
+                   self.buildings[building] =Building(building.strip())
+                self.buildings.get(building).addToRoom(room.strip(), days, times) 
                 
                 
             
@@ -241,7 +243,7 @@ class Scraper(object):
             
     def parse_room_building(self, building_number):
         
-        invalid_list=["ONLINE", "ON LINE", "T B A","NO ROOM", "TBA" ,"", "ENGR2"]
+        invalid_list=["ONLINE", "ON LINE", "T B A","NO ROOM", "TBA" ,""]
         
         if building_number in invalid_list:
                 return "invalid", "invalid"
@@ -260,6 +262,7 @@ class Scraper(object):
             
         building=building_number[ 0 : m ] 
         room=building_number[m:len(building_number)]
+        
         return building, room
             
             
@@ -267,8 +270,7 @@ class Scraper(object):
 #   create a scraper object and build the the temporary list of data  
 #   (This takes about 15 mins to run)
 #   i.e.
-
-#        
+   
 scrape=Scraper()
 scrape.iterateAnthropology()
 

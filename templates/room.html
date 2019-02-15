@@ -18,12 +18,12 @@
 			 <th> ==={{ room }}=== <br> </th>	 
 				 
 			 {% for day in room.days %}
+			 {% if day.name == result.get("Day") %}
 				<tr>
 				<th> {{ day }} <br> </th>
 				</tr>
+			{% endif %}
 			{% endfor %}
-
-		
 	 	</p>
 	 	
 		<table>
@@ -36,7 +36,7 @@
 
         </table>
 
-		<a href="/">Search for another room</a>
+		<a href="/result?Building={{ room.owning_building.name }}&Day={{ result.get('Day') }}">Search for another room</a>
 
 		{% include 'calendar.html' %}
 
