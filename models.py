@@ -1,4 +1,5 @@
 from app import db
+import time
 
 class Building(db.Model):
     __tablename__ = "building"
@@ -36,6 +37,11 @@ class Room(db.Model):
 
 #    building = db.relationship("Building", backref=db.backref(
 #        "room", order_by=id), lazy=True)
+
+    def is_free(self, day, time):
+        cur_day = self.days.__getitem__(day)
+        times = cur_day.ranges.split('#')
+        print(times)
 
     def __repr__(self):
         return "Room is: {}, Building is: {}".format(self.roomnumber, self.owning_building.name)
