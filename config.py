@@ -12,7 +12,7 @@ class Config(object):
     
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or  'sqlite:///site.db'
     print("Database URL configured as:", SQLALCHEMY_DATABASE_URI)
-    
+
     #SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
 
 class ProductionConfig(Config):

@@ -18,34 +18,34 @@ for building in scrape.getBuildings():
         print("Adding:", building.name)
         b = Building(name=name)
         db.session.add(b)
- 
+
 db.session.commit()
- 
-for building in scrape.getBuildings(): 
+
+for building in scrape.getBuildings():
     building_object = scrape.getBuildings().get(building)
     b = Building.query.filter_by(name=building_object.getName().rstrip()).first()
     for room in building_object.getRooms():
-        
+
         room = scrape.getBuildings().get(building).getRooms().get(room)
-         
+
         if (not (room in b.rooms)):
                 print("Adding:", room.number)
                 r1 = Room(roomnumber=room.number.rstrip(),room_type='trashy_room_standard', building_id=b.id)
                 db.session.add(r1)
- 
-db.session.commit()            
+
+db.session.commit()
 
 for building in scrape.getBuildings():
     b = Building.query.filter_by(name=building.rstrip()).first()
-    
+
     for room in scrape.getBuildings().get(building).getRooms():
-        
+
         r_id = 0
         for r in b.rooms:
             if (r.roomnumber == room):
                 r_id = r.id
                 break
-        
+
         for day in scrape.getBuildings().get(building).getRooms().get(room).getDays():
             times = scrape.getBuildings().get(building).getRooms().get(room).getDays().get(day).getTimes()
             #times.sort()
@@ -55,15 +55,15 @@ for building in scrape.getBuildings():
                 print("Adding Time:", time.toString())
                 d.add_time(time.toString())
             db.session.add(d)
-            
+
 db.session.commit()
 #             print(timeObject)
 #             print(type(timeObject))
 #             print(dir(timeObject))
 #             print(timeObject[0].toString())
 
-# for building in scrape.getBuildings():    
+# for building in scrape.getBuildings():
 #     for room in scrape.getBuildings().get(building).getRooms():
 #         for day in scrape.getBuildings().get(building).getRooms().get(room).getDays():
 #             print("Today's schedule for ", building,room, day)
-#             scrape.print_class_day(building, room, day)  
+#             scrape.print_class_day(building, room, day)
