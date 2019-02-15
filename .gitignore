@@ -23,7 +23,7 @@ lib64/
 parts/
 sdist/
 var/
-wheels/
+wheels/6
 *.egg-info/
 .installed.cfg
 *.egg
@@ -107,3 +107,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# local sqlite database for testing doesn't need to be on github.
+site.db

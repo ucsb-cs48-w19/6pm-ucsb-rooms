@@ -26,12 +26,15 @@
 		<p>Search For Classrooms</p>
 		<form action="result" autocomplete="off" method="GET">
 			<p>
-				<p>Building</p><br /> <span class="myarrow"><input
+				<p>Building</p><br /> <span class="myarrow"><input autofocus
 					onClick="this.select();" class="inputField" type="text"
-					maxlength="20" list="buildingList" name="Building" /></span>
+					maxlength="20" list="buildingList" name="Building" placeholder="{{ placeholder }}" style=""/></span>
+					
 
 				<datalist id="buildingList">
-					<option> building junk really </option>
+					{% for building in buildings %}
+				 		<option> {{ building.name }} </option>
+					{% endfor %}
 				</datalist>
 			</p>
 <!-- 			<p> -->
@@ -43,7 +46,7 @@
 <!-- 				</datalist> -->
 <!-- 			</p> -->
 			<p>
-				<select id="dayList">
+				<select id="dayList" name="Day">
 					<option selected value="TODAY">Today</option>
 					<option value="M">Monday</option>
 					<option value="T">Tuesday</option>
