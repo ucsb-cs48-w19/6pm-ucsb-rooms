@@ -35,7 +35,7 @@ def result():
             if (result["Day"] == "Thursday"):
                 result["Day"] = "R"
             else:
-               result["Day"][0] 
+               result["Day"] = result["Day"][0] 
         #print("RESULTS ARE A: ", help(result))
         name = request.args.get('Building')
         allBuildings = ""
