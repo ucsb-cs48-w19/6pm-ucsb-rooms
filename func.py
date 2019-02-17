@@ -4,14 +4,15 @@ import re
 import copy
 
 #set this =  data from result.html (the time ranges) and move it inside the parseAndStore function
-str =": :4:00pm-4:50pm::11:00am-12:15pm::5:00pm-5:50pm::1:00pm-1:50pm::2:00pm-3:15pm:"
+str0 =": :4:00pm-4:50pm::11:00am-12:15pm::5:00pm-5:50pm::1:00pm-1:50pm::2:00pm-3:15pm:"
 
-def parse(str):
-    str1 = str.replace("-","::")
+def parse(str0):
+    str1 = str0.replace("-","::")
     str1 = str1.replace(" ","")
     time = str1.split("::")
 
     objList = [];
+    available = [];
 
     for range in time:
         range = range.replace(":","")
@@ -29,18 +30,31 @@ def parse(str):
                 range += 1200
                 objList.append(range)
 
-    print(objList)      # now objList has all time
+
+
+    objList.sort()
+    print(objList)      # now objList has all the unavailable time
 # everything is store in a list at an int
 
-#parse(str)
+    availableStart = objList[1::2]
+    availableStart.append(700)
+    availableEnd = objList[::2]
+    availableEnd.append(2359)
+    availableStart.sort()
+    availableEnd.sort()
+    print(availableStart)
+    print(availableEnd)
 
-def ifAvailable(int1, int2):
-    #take systime , turn it into 4 digit int
-    #go thru the list, compare systime with with item 1&2, 3&4, 5&6.....
-    # ex: int1 = item 1, int2 = item 2 , if systime >= int1 and <= int2
-    #return unavailable
-    #else return available
+    i = 0
+    while i < len(availableStart):
+        startTime = availableStart[i]
+        startTime =str(startTime)
+        endTime = availableEnd[i]
+        endTime = str(endTime)
+        output = "Available from: " + startTime + " to " + endTime
+        available.append(output)
+        i += 1
 
-    def availableTime(int2, int3):
-    #same concept with 2 special case 700 to item1 and last item to 2300
-    #return item int2 - int1 = available time
+    print(available)
+
+parse(str0)
