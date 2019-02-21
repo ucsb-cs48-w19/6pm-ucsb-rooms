@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import Select
 import re
 import sys
-
+from datetime import datetime
 
 #SCROLL TO THE BOTTOM FOR TIPS ON USING THE SCRAPER
 #SEE COMMENTS AT THE BOTTOM
@@ -62,10 +62,8 @@ class Day:
     def getDay(self):
                 return self.day
     def getTimes(self):
-                return self.times  
-            
-            
-    
+                return self.times
+
     def addTime(self,t):
         start=t.split(" - ")[0]
         end=t.split(" - ")[1]
@@ -80,7 +78,30 @@ class Day:
     def printClassDay(self):
         for time in self.times:
             print(time.getStart(), " - ", time.getEnd())
-        
+
+    """
+    New Methods added: converting times to string, adding times as list
+    of ints, sorting times as ints
+    """
+    # Method to remove the
+    def timeString(self):
+        s = ""
+        it = iter(self.times)
+        for time in it:
+            s += "#" + datetime.strptime(str(time), '%H%M').strftime('%I:%M%p').lstrip("0") + "-" + datetime.strptime(str(next(it), '%H%M').strftime('%I:%M%p').lstrip("0") + "#" 
+        return s
+
+    # Method to add time as list of ints
+    def addTime2(self, t):
+        t.replace(" ", "")
+        split = re.split(r"-", t)
+        self.times.extend([int(datetime.strptime(str(split[0], '%I:%M%p').strftime('%H%M'))), int(datetime.strptime(str(split[1], '%I:%M%p').strftime('%H%M')))])
+    #Method to sort list of ints and remove duplicates
+    def sortTime(self):
+        self.times = list(set(self.times))
+        self.times.sort()
+
+
 class Room:
     
     #A class Room has a list of days
