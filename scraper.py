@@ -88,7 +88,7 @@ class Day:
         s = ""
         it = iter(self.times)
         for time in it:
-            s += "#" + datetime.strptime(str(time), '%H%M').strftime('%I:%M%p').lstrip("0") + "-" + datetime.strptime(str(next(it), '%H%M').strftime('%I:%M%p').lstrip("0") + "#" 
+            s += "#" + datetime.strptime(str(time), '%H%M').strftime('%I:%M%p').lstrip("0") + "-" + datetime.strptime(str(next(it)), '%H%M').strftime('%I:%M%p').lstrip("0") + "#"
         return s
 
     # Method to add time as list of ints
