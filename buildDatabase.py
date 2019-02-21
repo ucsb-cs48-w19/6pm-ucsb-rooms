@@ -47,7 +47,8 @@ for building in scrape.getBuildings():
                 break
 
         for day in scrape.getBuildings().get(building).getRooms().get(room).getDays():
-            times = scrape.getBuildings().get(building).getRooms().get(room).getDays().get(day).getTimes()
+            day.sortTime()
+            times = scrape.getBuildings().get(building).getRooms().get(room).getDays().get(day).timeString()
             #times.sort()
             d = Day(name=day,ranges="",room_id=r_id)
             print("Adding day:",day)

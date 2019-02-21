@@ -10,40 +10,6 @@ from datetime import datetime
 
 #SCROLL TO THE BOTTOM FOR TIPS ON USING THE SCRAPER
 #SEE COMMENTS AT THE BOTTOM
-
-class Time:
-        
-        #A Class Time has a starting time and an ending time (string, i.e. "12:50pm")
-        #Belongs to a Day
-        def __init__(self, start, end):
-                self.start=start
-                self.end=end
-        def setStart(self, start):
-            self.start=start
-        def setEnd(self, end):
-            self.end=end    
-        def getStart(self):
-                return self.start
-        def getEnd(self):
-                return self.end
-        def toString(self):
-            return self.__repr__()
-
-        def timeStoi(self, input):
-            string=input.split(":")[0]+input.split(":")[1][0:2]
-            number=int(string)
-            if "pm" in input:
-                number=number+1200
-            return number  
-        
-        def __repr__(self):
-            return "#" + self.start + "-" + self.end + "#"
-        
-        def getStartInt(self):
-                return self.timeStoi(self.start)
-        def getEndInt(self):
-                return self.timeStoi(self.end)
-            
 class Day:
     
     #A class room Day has a list of class times.
@@ -64,17 +30,6 @@ class Day:
     def getTimes(self):
                 return self.times
 
-    def addTime(self,t):
-        start=t.split(" - ")[0]
-        end=t.split(" - ")[1]
-        
-        #avoid null pointer when checking for repeats
-        if not self.times:
-            self.times.append(Time(start, end))
-         #no repeats   
-        elif any(start!=time.getStart() for time in self.times):
-            self.times.append(Time(start, end))
-
     def printClassDay(self):
         for time in self.times:
             print(time.getStart(), " - ", time.getEnd())
@@ -92,10 +47,10 @@ class Day:
         return s
 
     # Method to add time as list of ints
-    def addTime2(self, t):
+    def addTime(self, t):
         t.replace(" ", "")
         split = re.split(r"-", t)
-        self.times.extend([int(datetime.strptime(str(split[0], '%I:%M%p').strftime('%H%M'))), int(datetime.strptime(str(split[1], '%I:%M%p').strftime('%H%M')))])
+        self.times.extend([int(datetime.strptime(str(split[0]), '%I:%M%p').strftime('%H%M')), int(datetime.strptime(str(split[1]), '%I:%M%p').strftime('%H%M'))])
     #Method to sort list of ints and remove duplicates
     def sortTime(self):
         self.times = list(set(self.times))
