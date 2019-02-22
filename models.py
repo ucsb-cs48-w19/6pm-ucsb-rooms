@@ -1,9 +1,10 @@
 from app import db
-import time
+import pyzt
+from datetime import datetime as dt
+from pyzt import timezone as tz
 
 class Building(db.Model):
     __tablename__ = "building"
-
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), unique=True, nullable=False)
@@ -29,7 +30,7 @@ class Room(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     roomnumber = db.Column(db.String, nullable=False)
-    room_type = db.Column(db.String)
+#     room_type = db.Column(db.String)
 
     days = db.relationship('Day', backref='owning_room', lazy=True)
 
@@ -38,10 +39,16 @@ class Room(db.Model):
 #    building = db.relationship("Building", backref=db.backref(
 #        "room", order_by=id), lazy=True)
 
-    def is_free(self, day, time):
-        cur_day = self.days.__getitem__(day)
-        times = cur_day.ranges.split('#')
-        print(times)
+    def is_free(self, day='W', time='0:00'):
+        today = 0;
+        for d in self.days:
+            if d.name == day:
+               today = d 
+               print(d.name)
+        
+#         cur_day = next(d for d in self.days if d==day)#self.days.__getitem__(day)
+#         times = cur_day.ranges.split('#')
+#         print(times)
 
     def __repr__(self):
         return "Room is: {}, Building is: {}".format(self.roomnumber, self.owning_building.name)
