@@ -17,7 +17,7 @@ date_format='%H%M'
 date = datetime.now(tz=pytz.utc)
 date = date.astimezone(timezone('US/Pacific'))
 intTime = int(date.strftime(date_format))
-print (intTime)
+print ("current time as integer", intTime)
 
 #########################
 
@@ -49,7 +49,7 @@ def parse(str0):
 
 
     objList.sort()
-    print(objList)      # now objList has all the unavailable time
+    print("list of unavailable time", objList)      # now objList has all the unavailable time
 # everything is store in a list at an int
 # hardcoded 7am to 1159pm for available time ranges
 
@@ -59,8 +59,8 @@ def parse(str0):
     availableEnd.append(2359)
     availableStart.sort()
     availableEnd.sort()
-    print(availableStart)   # list with available start time
-    print(availableEnd)    # list with available end time
+    print("list of available start time", availableStart)   # list with available start time
+    print("list of available end time", availableEnd)    # list with available end time
 
     i = 0
     while i < len(availableStart):
@@ -79,7 +79,7 @@ def parse(str0):
         i += 1
 
     print(available)
-    print("........................")
+    print("list of available time ranges")
     print(availableList)
 
     #######if available implementation########
@@ -89,13 +89,28 @@ def parse(str0):
     j = 0
     TimeOfAvailability = 0
     ifavailable = "not available at this moment"
+    ##following time is for testing only
+    hardcodedSearchTime = 720
     while j < len(availableList):
-        if(intTime >= availableList[j] and intTime < availableList[j+1]):
-            ifavailable = "available at this moment"
+        if(hardcodedSearchTime >= availableList[j] and intTime < availableList[j+1]):
+        ######################################################################################################
+        #comment all lines with hardcodedSearchTime and uncomment intTime/Current to use current search time
+        #if(intTime >= availableList[j] and intTime < availableList[j+1]):
+            ifavailable = "Available at this moment"
+            #see currentTimeObj.py for the sample
+            TotalHardcodedTime = ((hardcodedSearchTime // 100) * 60) + (hardcodedSearchTime % 100)
+            #TotalTimeCurrent = ((intTime // 100) * 60) + (intTime % 100)
+            TotalTimeEnd = ((availableList[j+1] // 100) * 60) + (availableList[j+1] % 100)
+            #TimeOfAvailability = TotalTimeEnd - TotalTimeCurrent
+            TimeOfAvailability = TotalTimeEnd - TotalHardcodedTime
+            TOAhours = TimeOfAvailability // 60
+            TOAminutes = TimeOfAvailability % 60
+            print("you have",TimeOfAvailability,"minutes available for this room")
+            print("you have",TOAhours,"hours",TOAminutes,"minutes available for this room")
             break
-            print(ifavailable)
         j += 2
 
+    #7:20 am is between 7am - 11am, and should have 2hrs40mins until the room become unavailable again
     print(ifavailable)
 
 
