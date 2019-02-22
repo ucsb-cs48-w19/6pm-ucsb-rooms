@@ -48,7 +48,7 @@ def result():
                  buildings = Building.query.all()
                  return render_template("home.html", placeholder='Invalid Building', buildings=buildings)
 
-             return render_template("result.html", result=result, building=building, rooms=rooms)
+             return render_template("result.html", result=result, building=building, rooms=rooms, time='9:15am')#get_time_pst())
         except Exception as e:
             return(str(e))
 
@@ -68,6 +68,7 @@ def room():
     
     room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
     print(room.free_time(get_day_pst(),get_time_pst()))
+#     print(room.free_time(get_day_pst(),"7:25am"))
     
 #     for room in building.rooms:
 #         if(room.roomnumber.strip() == request.args.get('Room')):
