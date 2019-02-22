@@ -30,10 +30,6 @@ class Day:
     def getTimes(self):
                 return self.times
 
-    def printClassDay(self):
-        for time in self.times:
-            print(time.getStart(), " - ", time.getEnd())
-
     """
     New Methods added: converting times to string, adding times as list
     of ints, sorting times as ints
@@ -48,9 +44,12 @@ class Day:
 
     # Method to add time as list of ints
     def addTime(self, t):
-        t.replace(" ", "")
+        t = t.replace(" ", "")
         split = re.split(r"-", t)
-        self.times.extend([int(datetime.strptime(str(split[0]), '%I:%M%p').strftime('%H%M')), int(datetime.strptime(str(split[1]), '%I:%M%p').strftime('%H%M'))])
+        firstTime = int(datetime.strptime(str(split[0]), '%I:%M%p').strftime('%H%M'))
+        secondTime = int(datetime.strptime(str(split[1]), '%I:%M%p').strftime('%H%M'))
+        self.times.append(firstTime)
+        self.times.append(secondTime)
     #Method to sort list of ints and remove duplicates
     def sortTime(self):
         self.times = list(set(self.times))
@@ -247,18 +246,18 @@ class Scraper(object):
 #   (This takes about 15 mins to run)
 #   i.e.
    
-scrape=Scraper()
-scrape.iterateAnthropology()
+#scrape=Scraper()
+#scrape.iterateAnthropology()
 
-for building in scrape.getBuildings():
-    print("\n",building)
-    for room in scrape.getRooms(building):
-        print(room)
-        for day in scrape.getDays(building, room):
-            print(day)
-            for time in scrape.getTimes(building, room, day):
-                print(time.getStart(), " - ", time.getEnd())  
-                print(time.getStartInt(), " - ", time.getEndInt())
+#for building in scrape.getBuildings():
+ #   print("\n",building)
+ #   for room in scrape.getRooms(building):
+  #      print(room)
+   #     for day in scrape.getDays(building, room):
+    #        print(day)
+    #        for time in scrape.getTimes(building, room, day):
+     #           print(time.getStart(), " - ", time.getEnd())  
+      #          print(time.getStartInt(), " - ", time.getEndInt())
     
     
 

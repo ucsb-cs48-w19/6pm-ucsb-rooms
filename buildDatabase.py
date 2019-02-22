@@ -47,14 +47,13 @@ for building in scrape.getBuildings():
                 break
 
         for day in scrape.getBuildings().get(building).getRooms().get(room).getDays():
-            day.sortTime()
+            scrape.getBuildings().get(building).getRooms().get(room).getDays().get(day).sortTime()
             times = scrape.getBuildings().get(building).getRooms().get(room).getDays().get(day).timeString()
             #times.sort()
             d = Day(name=day,ranges="",room_id=r_id)
             print("Adding day:",day)
-            for time in times:
-                print("Adding Time:", time.toString())
-                d.add_time(time.toString())
+            print("Adding times: ", times)
+            d.add_time(times)
             db.session.add(d)
 
 db.session.commit()
