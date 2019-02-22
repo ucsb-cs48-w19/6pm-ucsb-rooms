@@ -38,10 +38,32 @@ class Room(db.Model):
 #    building = db.relationship("Building", backref=db.backref(
 #        "room", order_by=id), lazy=True)
 
-    def is_free(self, day, time):
-        cur_day = self.days.__getitem__(day)
-        times = cur_day.ranges.split('#')
-        print(times)
+    def free_time(self, day, time):
+#         print("Day is:",day,"Time is:",time)
+#         print(self.days)
+        today = 0
+        for d in self.days:
+            if d.name == day:
+               today = d 
+#                print(d.name)
+               
+        if today == 0:
+            return None
+        else:
+            times = today.ranges.split("##")
+            for class_time in times:
+                class_time = class_time.replace("#","")
+                
+#                 print(class_time)
+                if class_time > time:
+                    print("class_time is:",class_time)
+                    print("Time was:",time)
+            
+#             print(times)
+        
+#         cur_day = self.days.__getitem__(day)
+#         times = cur_day.ranges.split('#')
+#         print(times)
 
     def __repr__(self):
         return "Room is: {}, Building is: {}".format(self.roomnumber, self.owning_building.name)

@@ -7,9 +7,11 @@ from app import db
 from models import Building, Room
 
 from app.forms import LoginForm
+from app.time_formatter import get_day_pst
+from app.time_formatter import get_time_pst
 
-from datetime import date
-import calendar
+# from datetime import date
+# import calendar
 
 @app.route("/")
 def home():
@@ -29,13 +31,7 @@ def result():
         result = request.args.to_dict()
         #print("THIS IS THE DIR========",dir(result))
         if (result.get("Day") == "TODAY"):
-            my_date = date.today()
-            result["Day"] = calendar.day_name[my_date.weekday()]
-            
-            if (result["Day"] == "Thursday"):
-                result["Day"] = "R"
-            else:
-               result["Day"] = result["Day"][0] 
+            result["Day"] = get_day_pst()
         #print("RESULTS ARE A: ", help(result))
         name = request.args.get('Building')
         allBuildings = ""
@@ -71,7 +67,7 @@ def room():
     rn = request.args.get('Room')
     
     room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
-    print(room)
+    print(room.free_time(get_day_pst(),get_time_pst()))
     
 #     for room in building.rooms:
 #         if(room.roomnumber.strip() == request.args.get('Room')):
