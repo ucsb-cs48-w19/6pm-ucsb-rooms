@@ -20,7 +20,7 @@
 					 <div class="roomLink">
 					 	Room: {{ room.roomnumber }} on day: {{ result.get('Day') }} 
 					 	<br>
-					 	{{ room.free_time(result.get('Day'),time) }}
+					 	{{ room.time_room_free }}
 					 </div>
 				 </a> 
 		{% endfor %}

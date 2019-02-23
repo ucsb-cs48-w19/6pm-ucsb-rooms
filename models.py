@@ -36,46 +36,65 @@ class Room(db.Model):
 
     building_id = db.Column(db.Integer, db.ForeignKey("building.id"), nullable=False)
 
+    # Note, 1440 is the maximum number of minutes any room can be free, because it's 24*60.
+    minutes_free = 1440
+    
+    time_room_free = "Free All Day"
+
 #    building = db.relationship("Building", backref=db.backref(
 #        "room", order_by=id), lazy=True)
 
-    def time_stoi(self, input):
+    def __lt__(self, other):
+        return other.minutes_free < self.minutes_free
+
+    def time_in_minutes(self, input):
+        print(input)
         string = input.split(":")[0] + input.split(":")[1][0:2]
         number = int(string)
-        if "pm" in input and number < 1200:
+        if "PM" in input and number < 1200:
             number = number + 1200
         elif number >= 1200 and number <= 1259:
             number - 1200
+        number = (number // 100) * 60 + int(string[1:])
         return number
 
     def free_time(self, day, time):
-        time = self.time_stoi(time)
- #         print("Day is:",day,"Time is:",time)
+        time = self.time_in_minutes(time)
+        print("Day is:", day, "Time is:", time, "Room is:", self.roomnumber)
  #         print(self.days)
         today = 0
 #         today = self.days[0]
         for d in self.days:
             if d.name == day:
                 today = d 
- #                print("found the da:", d.name)
+#                 print("found the da:", d.name)
  #         print("Today is now:", today)
         if today == 0:
-             return "Free All Day"
+            return "Free All Day"
         else:
             times = today.ranges.split("##")
             for class_time in times:
                 class_time = class_time.replace("#", "")
   
                 t = class_time.split('-')
-                start = self.time_stoi(t[0])
- #                 end = self.time_stoi(t[1])
- #                 print("number is:", start, end)
-                  
+                start = self.time_in_minutes(t[0])
+                end = self.time_in_minutes(t[1])
+                print("number is:", time, start)
                 if time < start:
- #                     print("Free time is:", start - time)
-                    free_hours = floor((start - time) / 100)
-                    free_mins = ((start - time) * 0.6) % 60 
-                    return str(free_hours) + " hrs " + str(free_mins) + " mins"
+#                     start_minutes = (start // 100) * 60
+#                     time_minutes = (time // 100) * 60
+                    minutes_free = (start - time) % 60
+                    hours_free = (start - time) // 60
+
+                    self.minutes_free = start - time
+                    self.time_room_free = "Free for: " + str(hours_free) + " hrs " + str(minutes_free) + " mins"
+                    return self.time_room_free
+                elif time < end:
+                    minutes_free = (end - time) % 60
+                    hours_free = (end - time) // 60
+                    self.minutes_free = -(start - time)
+                    self.time_room_free = "Not free for: " + str(hours_free) + " hrs " + str(minutes_free) + " mins"
+                    return self.time_room_free
         return "Free All Day"
 
     def __repr__(self):
