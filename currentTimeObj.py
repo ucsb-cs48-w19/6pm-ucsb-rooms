@@ -36,7 +36,8 @@ availableTimeInMins = TotalTimeE - TotalTimeA
 
 print("you have", availableTimeInMins, "minutes available for this room")
 
-remainHours = availableTimeInMins // 100
-remainMinutes = availableTimeInMins % 100
+remainHours = availableTimeInMins // 60
+remainMinutes = availableTimeInMins % 60
+##
 
 print("you have",remainHours,"hour/s",remainMinutes, "minutes left for this room")
