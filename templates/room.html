@@ -26,18 +26,17 @@
 			{% endif %}
 			{% endfor %}
 	 	</p>
-	 	
-		<table>
-         {% for key, value in result.items() %}
-            <tr>
-               <th> {{ key }}: </th>
-               <td> {{ value }} </td>
-            </tr>
-         {% endfor %}
 
-        </table>
-
-		<a href="/result?Building={{ room.owning_building.name }}&Day={{ result.get('Day') }}">Search for another room</a>
+		<a href="/result?Building={{ room.owning_building.name }}&Day={{ result.get('Day') }}">
+			<div class="roomLink">
+				Search for another Room
+			</div>
+		</a>
+		<a href="/">			
+			<div class="roomLink">
+				Search for another Building
+			</div>
+		</a>
 
 		{% include 'calendar.html' %}
 

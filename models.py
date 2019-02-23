@@ -48,41 +48,40 @@ class Room(db.Model):
         return other.minutes_free < self.minutes_free
 
     def time_in_minutes(self, input):
-        print(input)
         string = input.split(":")[0] + input.split(":")[1][0:2]
         number = int(string)
         if "PM" in input and number < 1200:
             number = number + 1200
-        elif number >= 1200 and number <= 1259:
-            number - 1200
-        number = (number // 100) * 60 + int(string[1:])
+        elif "AM" in input and number >= 1200 and number <= 1259:
+            number = number - 1200
+#         print("Number is:", number)
+        number = (number // 100) * 60 + int(string[len(string)-2:])
         return number
 
     def free_time(self, day, time):
+#         print("Time is:",time)
         time = self.time_in_minutes(time)
-        print("Day is:", day, "Time is:", time, "Room is:", self.roomnumber)
- #         print(self.days)
+#         print("Day is:", day, "Time is:", time, "Room is:", self.roomnumber)
         today = 0
-#         today = self.days[0]
+
         for d in self.days:
             if d.name == day:
                 today = d 
-#                 print("found the da:", d.name)
- #         print("Today is now:", today)
+
         if today == 0:
             return "Free All Day"
         else:
             times = today.ranges.split("##")
             for class_time in times:
                 class_time = class_time.replace("#", "")
-  
+
                 t = class_time.split('-')
                 start = self.time_in_minutes(t[0])
                 end = self.time_in_minutes(t[1])
-                print("number is:", time, start)
+#                 print("Time is:",time,"Start is:", start)
+
                 if time < start:
-#                     start_minutes = (start // 100) * 60
-#                     time_minutes = (time // 100) * 60
+
                     minutes_free = (start - time) % 60
                     hours_free = (start - time) // 60
 
