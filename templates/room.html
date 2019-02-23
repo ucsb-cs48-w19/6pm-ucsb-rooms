@@ -16,7 +16,7 @@
 		<h2> In building {{ room.owning_building.name }}
 		<h2> The day is: {{ result.get("Day") }} </h2>
 		<div class="timeBox" style="background-color: #AFBDCB;">
-			<h1> {{ (room.minutes_free // 60)|string + "hrs " + (room.minutes_free % 60)|string + "mins" }} <br> Free </h1>
+			<h1> {{ room.time_room_free }} </h1>
 		</div>
 		<p>  	 
 			 {% for day in room.days %}
