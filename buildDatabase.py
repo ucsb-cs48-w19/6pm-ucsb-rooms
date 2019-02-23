@@ -7,8 +7,8 @@ from astropy.units import day
 #db.create_all()
 
 scrape=Scraper()
-#scrape.iterateSubjects()
-scrape.iterateAnthropology()
+scrape.iterateSubjects()
+#scrape.iterateAnthropology()
 print("====THE SCRAPER FINISHED RUNNING, NOW WE'RE GONNA VIEW THE OBJECT STORED RESULTS=====")
 
 for building in scrape.getBuildings():
