@@ -34,12 +34,14 @@ class Day:
     New Methods added: converting times to string, adding times as list
     of ints, sorting times as ints
     """
+    def pairwise(self, iteratable):
+        a = iter(iteratable)
+        return zip(a, a)
     # Method to remove the
     def timeString(self):
         s = ""
-        it = iter(self.times)
-        for time in it:
-            s += "#" + datetime.strptime(str(time), '%H%M').strftime('%I:%M%p').lstrip("0") + "-" + datetime.strptime(str(next(it)), '%H%M').strftime('%I:%M%p').lstrip("0") + "#"
+        for x, y in self.pairwise(self.times):
+            s += "#" + datetime.strptime(str(x), '%H%M').strftime('%I:%M%p').lstrip("0") + "-" + datetime.strptime(str(y), '%H%M').strftime('%I:%M%p').lstrip("0") + "#"
         return s
 
     # Method to add time as list of ints
