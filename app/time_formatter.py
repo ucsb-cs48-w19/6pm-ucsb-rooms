@@ -6,7 +6,7 @@ import calendar
 def get_time_pst():
     date = dt.now(tz=pz.utc)
     date = date.astimezone(tz('US/Pacific'))
-    return date.strftime('%I:%M%P').lstrip('0')
+    return date.strftime('%I:%M%p').lstrip('0')
 
 def get_day_pst():
     date = dt.now(tz=pz.utc)
@@ -16,7 +16,7 @@ def get_day_pst():
     if (day == "Thursday"):
         day = "R"
     else:
-       day = result["Day"][0]
+       day = day[0]
     
     return day
 

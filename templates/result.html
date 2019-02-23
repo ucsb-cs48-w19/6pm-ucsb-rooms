@@ -14,27 +14,16 @@
 	<div class="messageArea">
 		<h1>Result</h1>
 		<h2> You searched for: {{ result.get("Building") }} </h2>
-
+		<a href="/">Search for another building</a>
 		{% for room in rooms %}
 				 <a href="/room?BuildingID={{ building.id }}&Room={{ room.roomnumber }}&Day={{ result.get('Day') }}">
 					 <div class="roomLink">
 					 	Room: {{ room.roomnumber }} on day: {{ result.get('Day') }} 
 					 	<br>
-					 	And the room is currently not free sorry go home
+					 	{{ room.time_room_free }}
 					 </div>
 				 </a> 
 		{% endfor %}
-
-	 	
-		<table>
-         {% for key, value in result.items() %}
-            <tr>
-               <th> {{ key }}: </th>
-               <td> {{ value }} </td>
-            </tr>
-         {% endfor %}
-
-        </table>
 
 		<a href="/">Search for another building</a>
 

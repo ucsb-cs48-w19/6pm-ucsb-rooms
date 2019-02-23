@@ -160,7 +160,7 @@ class Scraper(object):
     def iterateAnthropology(self):
 
         si = Select(self.driver.find_element_by_id("ctl00_pageContent_courseList"))
-        print("\nNOTE: Takes about 1 minunte to scrape Anthropology list of data")
+        print("\nNOTE: Takes about 1 minute to scrape Anthropology list of data")
 
         num =len(si.options)
 

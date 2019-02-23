@@ -1,9 +1,10 @@
 from app import db
 import time
+from math import floor
+
 
 class Building(db.Model):
     __tablename__ = "building"
-
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), unique=True, nullable=False)
@@ -31,39 +32,69 @@ class Room(db.Model):
     roomnumber = db.Column(db.String, nullable=False)
     room_type = db.Column(db.String)
 
-    days = db.relationship('Day', backref='owning_room', lazy=True)
+    days = db.relationship('Day', backref='owning_room')
 
     building_id = db.Column(db.Integer, db.ForeignKey("building.id"), nullable=False)
+
+    # Note, 1440 is the maximum number of minutes any room can be free, because it's 24*60.
+    minutes_free = 1440
+    
+    time_room_free = "Free All Day"
 
 #    building = db.relationship("Building", backref=db.backref(
 #        "room", order_by=id), lazy=True)
 
+    def __lt__(self, other):
+        return other.minutes_free < self.minutes_free
+
+    def time_in_minutes(self, input):
+        string = input.split(":")[0] + input.split(":")[1][0:2]
+        number = int(string)
+        if "PM" in input and number < 1200:
+            number = number + 1200
+        elif "AM" in input and number >= 1200 and number <= 1259:
+            number = number - 1200
+#         print("Number is:", number)
+        number = (number // 100) * 60 + int(string[len(string)-2:])
+        return number
+
     def free_time(self, day, time):
-#         print("Day is:",day,"Time is:",time)
-#         print(self.days)
+#         print("Time is:",time)
+        time = self.time_in_minutes(time)
+#         print("Day is:", day, "Time is:", time, "Room is:", self.roomnumber)
         today = 0
+
         for d in self.days:
             if d.name == day:
-               today = d 
-#                print(d.name)
-               
+                today = d 
+
         if today == 0:
-            return None
+            return "Free All Day"
         else:
             times = today.ranges.split("##")
             for class_time in times:
-                class_time = class_time.replace("#","")
-                
-#                 print(class_time)
-                if class_time > time:
-                    print("class_time is:",class_time)
-                    print("Time was:",time)
-            
-#             print(times)
-        
-#         cur_day = self.days.__getitem__(day)
-#         times = cur_day.ranges.split('#')
-#         print(times)
+                class_time = class_time.replace("#", "")
+
+                t = class_time.split('-')
+                start = self.time_in_minutes(t[0])
+                end = self.time_in_minutes(t[1])
+#                 print("Time is:",time,"Start is:", start)
+
+                if time < start:
+
+                    minutes_free = (start - time) % 60
+                    hours_free = (start - time) // 60
+
+                    self.minutes_free = start - time
+                    self.time_room_free = "Free for: " + str(hours_free) + " hrs " + str(minutes_free) + " mins"
+                    return self.time_room_free
+                elif time < end:
+                    minutes_free = (end - time) % 60
+                    hours_free = (end - time) // 60
+                    self.minutes_free = -(start - time)
+                    self.time_room_free = "Not free for: " + str(hours_free) + " hrs " + str(minutes_free) + " mins"
+                    return self.time_room_free
+        return "Free All Day"
 
     def __repr__(self):
         return "Room is: {}, Building is: {}".format(self.roomnumber, self.owning_building.name)
@@ -80,6 +111,7 @@ class Room(db.Model):
             'room_type': self.room_type
             }
 
+
 class Day(db.Model):
     __tablename__ = "day"
 
@@ -93,7 +125,7 @@ class Day(db.Model):
         self.ranges = self.ranges + time
 
     def __repr__(self):
-        #return "Day is: {}, Time ranges are: {}, Owning room is: {}".format(self.name, self.ranges, self.owning_room.roomnumber)
+        # return "Day is: {}, Time ranges are: {}, Owning room is: {}".format(self.name, self.ranges, self.owning_room.roomnumber)
         return "On: {} Time ranges are: {}".format(self.name, self.ranges)
 
     def __init__(self, name, ranges, room_id):

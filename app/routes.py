@@ -44,11 +44,16 @@ def result():
              rooms = []
              if (building != None):
                 rooms = building.rooms
+                for r in rooms:
+                    r.free_time(result.get("Day"), get_time_pst())
+                     
+                rooms.sort()
+#                 print("YOUR ROOMS SORTED LOOK LIKE",rooms)
              else:
                  buildings = Building.query.all()
                  return render_template("home.html", placeholder='Invalid Building', buildings=buildings)
 
-             return render_template("result.html", result=result, building=building, rooms=rooms)
+             return render_template("result.html", result=result, building=building, rooms=rooms)#get_time_pst())
         except Exception as e:
             return(str(e))
 
@@ -67,14 +72,8 @@ def room():
     rn = request.args.get('Room')
     
     room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
-    print(room.free_time(get_day_pst(),get_time_pst()))
-    
-#     for room in building.rooms:
-#         if(room.roomnumber.strip() == request.args.get('Room')):
-#             currentRoom = Room
-#             break
-#         
-    #room = building.rooms.__getitem__(request.args.get('Room'))
+#     print(room.free_time(result.get("Day"),get_time_pst()))
+
     return render_template("room.html", result=result, room=room)
     
 
