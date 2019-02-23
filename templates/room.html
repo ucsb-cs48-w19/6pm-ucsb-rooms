@@ -12,12 +12,13 @@
 	</nav>
 
 	<div class="messageArea">
-		<h1>Result</h1>
-
-		<h2> You searched for: {{ result.get("Room") }} </h2>
-		<p> 
-			 <th> ==={{ room }}=== <br> </th>	 
-				 
+		<h2> You searched for room: {{ result.get("Room") }} </h2>
+		<h2> In building {{ room.owning_building.name }}
+		<h2> The day is: {{ result.get("Day") }} </h2>
+		<div class="timeBox" style="background-color: #AFBDCB;">
+			<h1> {{ (room.minutes_free // 60)|string + "hrs " + (room.minutes_free % 60)|string + "mins" }} <br> Free </h1>
+		</div>
+		<p>  	 
 			 {% for day in room.days %}
 			 {% if day.name == result.get("Day") %}
 				<tr>
@@ -38,7 +39,7 @@
 			</div>
 		</a>
 
-		{% include 'calendar.html' %}
+		{% include 'calendar_neo.html' %}
 
 	</div>
 

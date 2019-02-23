@@ -40,7 +40,7 @@ class Room(db.Model):
     minutes_free = 1440
     
     time_room_free = "Free All Day"
-
+    time_list = []
 #    building = db.relationship("Building", backref=db.backref(
 #        "room", order_by=id), lazy=True)
 
@@ -59,6 +59,16 @@ class Room(db.Model):
         return number
 
     def free_time(self, day, time):
+        """ 
+        This function generates the amount of time the room is free. 
+        It stores the free time locally in time_room_free
+        It stores the minutes free in minutes_free
+        It stores the list of all class times as tuples in time_list.
+        These values are later used to generate info about the rooms in the templates. The use case is to run this before doing any analysis on the rooms.
+        """
+        # Start out with a fresh list of times to generate. This prevents the list from getting full if this function is called more than once.
+        self.time_list.clear()
+#         self.time_list.append((840,915))
 #         print("Time is:",time)
         time = self.time_in_minutes(time)
 #         print("Day is:", day, "Time is:", time, "Room is:", self.roomnumber)
@@ -78,6 +88,8 @@ class Room(db.Model):
                 t = class_time.split('-')
                 start = self.time_in_minutes(t[0])
                 end = self.time_in_minutes(t[1])
+                self.time_list.append((start,end))
+                
 #                 print("Time is:",time,"Start is:", start)
 
                 if time < start:
