@@ -219,6 +219,31 @@ class Scraper(object):
         self.buildings.get(building).getRooms().get(room).getDays().get(day[0]).printClassDay()
             
     def parse_room_building(self, building_number):
+        building = ""
+        room = ""
+        invalid = ["RGYM", "TRACKFIELD", "ENGR", "TBA", "T B A", "ON LINE", "ONLINE", "IV", "BSBL", "RECEN", "SB HARBR", "ZODO", "REGYM", "EVENTCENTR", "GOLF", "STORKFIELD", "SWIM"]
+        if any(word in building_number for word in invalid):
+            return "invalid", "invalid"
+        if " " in building_number:
+            split = building_number.split(" ")
+            building = split[0]
+            room = split[1]
+        else:
+            split = re.findall(r"[^\W\d_]+|\d+", building_number)
+            if len(split) > 2:
+                split[1] = split[1] + split[2]
+            elif len(split) == 1:
+                building = split[0]
+                room = "N/A"
+            elif len(split) == 2:
+                building = split[0]
+                room = split[1]
+            else:
+                building = "invalid"
+                room = "invalid"
+        return building, room
+    
+    def parse_room_building2(self, building_number):
         
         invalid_list=["ONLINE", "ON LINE", "T B A","NO ROOM", "TBA" ,""]
         
