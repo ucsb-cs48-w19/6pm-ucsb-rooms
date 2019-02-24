@@ -36,6 +36,8 @@ div.timeBox {
 	width: max-content;
 	min-width: 40%;
 	min-height: max-content;
+	display: table;
+	border-collapse:separate;
 	margin: 2px auto 2px auto;
 	padding: 10px;
 	border: 2px solid #353432ff;
