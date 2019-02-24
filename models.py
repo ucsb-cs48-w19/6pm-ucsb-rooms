@@ -39,7 +39,7 @@ class Room(db.Model):
     # Note, 1440 is the maximum number of minutes any room can be free, because it's 24*60.
     minutes_free = 1440
     
-    time_room_free = "Free All Day"
+    time_room_free = "Free Rest of Day"
     time_list = []
 #    building = db.relationship("Building", backref=db.backref(
 #        "room", order_by=id), lazy=True)
@@ -79,7 +79,7 @@ class Room(db.Model):
                 today = d 
 
         if today == 0:
-            return "Free All Day"
+            return "Free Rest of Day"
         else:
             times = today.ranges.split("##")
             for class_time in times:
@@ -103,10 +103,10 @@ class Room(db.Model):
                 elif time < end:
                     minutes_free = (end - time) % 60
                     hours_free = (end - time) // 60
-                    self.minutes_free = -(start - time)
+                    self.minutes_free = -(end - time)
                     self.time_room_free = "Not free for: " + str(hours_free) + " hrs " + str(minutes_free) + " mins"
                     return self.time_room_free
-        return "Free All Day"
+        return "Free Rest of Day"
 
     def __repr__(self):
         return "Room is: {}, Building is: {}".format(self.roomnumber, self.owning_building.name)
