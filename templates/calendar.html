@@ -3,17 +3,40 @@
 
 <table rules="all" style="border-color:#D6D6D6;border-width:10px;border-style:none;width:100%;border-collapse:collapse;">
 	<tr>
-		<th class="heading">&nbsp;</th><th class="heading"><span>
-			Monday
-		</span></th><th class="heading"><span>
-			Tuesday
-		</span></th><th class="heading"><span>
-			Wednesday
-		</span></th><th class="heading"><span>
-			Thursday
-		</span></th><th class="heading"><span>
-			Friday
-		</span></th>
+		<th class="heading">Time</th>
+		
+		
+			{% if result.get("Day") == "M" %}
+			<th class="heading">
+			<span>
+				Monday
+			</span></th>
+			{% endif %}
+			{% if result.get("Day") == "T" %}
+			<th class="heading">
+			<span>
+				Tuesday
+			</span></th>
+			{% endif %}	
+			{% if result.get("Day") == "W" %}			
+			<th class="heading">
+			<span>
+				Wednesday
+			</span></th>
+			{% endif %}
+			{% if result.get("Day") == "R" %}		
+			<th class="heading">
+			<span>
+				Thursday
+			</span></th>
+			{% endif %}
+			{% if result.get("Day") == "F" %}		
+			<th class="heading">
+			<span>
+				Friday
+			</span>
+			</th>
+			{% endif %}
 		
 		{% set ns = namespace(h=8, m=0) %}
 		
@@ -24,12 +47,20 @@
            			{% set z='' %}
            			{% if ns.m % 2 == 0 %} {% set z='0' %} {% endif %}
 					{{ (ns.h+ns.m)|string+':'+((ns.m%2)*30)|string+z }}
-					{% set ns.m=ns.m+1 %}
+
 				</span>
 			</th>
-			{% for row in range(5) %}
-				<td style="background-color:#325C74;" class="calElement">&nbsp;</td>
-			{% endfor %}	
+			{% for row in range(1) %}
+			    {% set z='' %}
+           		{% if ns.m % 2 == 0 %} {% set z='0' %} {% endif %}
+				<!--time now is: {{ ((ns.h+ns.m)|string+((ns.m%2)*30)|string+z)|int }} <br>  -->
+				<!--time free is: {{ room.minutes_free }} <br> -->
+				<!--time in military is: {{ ((room.minutes_free // 60) * 100 + room.minutes_free % 60) }} <br> -->
+				{% if ((ns.h+ns.m)|string+((ns.m%2)*30)|string+z)|int <= ((room.minutes_free // 60) * 100 + room.minutes_free % 60) %}
+					<td style="background-color:#325C74;" class="calElement">&nbsp;</td>
+				{% endif %}
+			{% endfor %}
+			{% set ns.m=ns.m+1 %}	
          {% endfor %}		
 </table>
 </span>

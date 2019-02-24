@@ -40,7 +40,7 @@ def result():
             # print(Building.query.first().rooms)
 
              building = Building.query.filter_by(name=name).first()
-             print("We got the building:",name,". It look like:",building)
+#              print("We got the building:",name,". It look like:",building)
              rooms = []
              if (building != None):
                 rooms = building.rooms
@@ -72,6 +72,7 @@ def room():
     rn = request.args.get('Room')
     
     room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
+    room.free_time(result.get("Day"),get_time_pst())
 #     print(room.free_time(result.get("Day"),get_time_pst()))
 
     return render_template("room.html", result=result, room=room)
