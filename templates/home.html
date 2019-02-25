@@ -1,5 +1,8 @@
 {% extends 'layout.html' %} {% block body %}
-
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+</head>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<!-- Brand -->
@@ -29,13 +32,30 @@
 				<p>Building</p><br /> <span class="myarrow"><input autofocus
 					onClick="this.select();" class="inputField" type="text"
 					maxlength="20" list="buildingList" name="Building" placeholder="{{ placeholder }}" style=""/></span>
-					
 
 				<datalist id="buildingList">
+					<select style="display: none;">
 					{% for building in buildings %}
 				 		<option> {{ building.name }} </option>
 					{% endfor %}
+					</select>
 				</datalist>
+				<script>
+						$(document).ready(function () {
+							var nativedatalist = !!('list' in document.createElement('input')) &&
+								!!(document.createElement('datalist') && window.HTMLDataListElement);
+
+							if (!nativedatalist) {
+								$('input[list]').each(function () {
+									var availableTags = $('#' + $(this).attr("list")).find('option').map(function () {
+										return this.value;
+									}).get();
+									$(this).autocomplete({ source: availableTags });
+								});
+							}
+						});
+					</script>
+
 			</p>
 <!-- 			<p> -->
 <!-- 				Room Number<br /> <input onClick="this.select();" -->
