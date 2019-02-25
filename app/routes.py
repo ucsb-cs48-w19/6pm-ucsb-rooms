@@ -73,6 +73,7 @@ def room():
     
     room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
     room.free_time(result.get("Day"),get_time_pst())
+    print(room.time_list)
 #     print(room.free_time(result.get("Day"),get_time_pst()))
 
     return render_template("room.html", result=result, room=room)

@@ -81,15 +81,19 @@ class Room(db.Model):
         if today == 0:
             return "Free Rest of Day"
         else:
-            times = today.ranges.split("##")
-            for class_time in times:
-                class_time = class_time.replace("#", "")
 
-                t = class_time.split('-')
+            # Parse out all the times ranges, so that we can use them to build the calendar later. 
+            times = today.ranges.split("##")
+            for i in range(len(times)):
+                times[i] = times[i].replace("#", "")
+                t = times[i].split('-')
                 start = self.time_in_minutes(t[0])
                 end = self.time_in_minutes(t[1])
                 self.time_list.append((start,end))
-                
+            
+            for class_time in self.time_list:
+                start = class_time[0]
+                end = class_time[1]
 #                 print("Time is:",time,"Start is:", start)
 
                 if time < start:
