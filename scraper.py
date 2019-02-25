@@ -198,7 +198,8 @@ class Scraper(object):
 
         si = Select(self.driver.find_element_by_id("ctl00_pageContent_courseList"))
         print("\nNOTE: Takes about 1 minute to scrape Anthropology list of data")
-
+        sg = Select(self.driver.find_element_by_id("ctl00_pageContent_dropDownCourseLevels"))
+        sg.select_by_index(2)
         num =len(si.options)
 
         s1=Select(self.driver.find_element_by_id("ctl00_pageContent_courseList"))
@@ -213,7 +214,8 @@ class Scraper(object):
 
         si = Select(self.driver.find_element_by_id("ctl00_pageContent_courseList"))
         print("\nNOTE: Takes about 10-15 mins to scrape full list of data") 
-
+        sg = Select(self.driver.find_element_by_id("ctl00_pageContent_dropDownCourseLevels"))
+        sg.select_by_index(2)
         num =len(si.options)
         
         for index in range(0, num):
@@ -244,8 +246,9 @@ class Scraper(object):
                
             #print("\n",building_number, days, times)
             building, room=self.parse_room_building(building_number) 
-            
-            if (building!="invalid"):
+            status = self.driver.find_element_by_xpath("//*[@class='gridview']/tbody/tr["+str(index)+"]/td[4]").text
+
+            if (building!="invalid" and status.strip()!="Cancelled"):
                 if (building not in self.buildings):
                    self.buildings[building] =Building(building.strip())
                 self.buildings.get(building).addToRoom(room.strip(), days, times) 
