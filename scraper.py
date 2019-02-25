@@ -66,6 +66,18 @@ class Room:
         self.number=number
         self.times= {}
         
+    def __eq__(self, other):
+        if self is other:
+            return True
+        elif type(self) != type(other):
+            return False
+        else:
+            return self.number == other.number
+        
+        
+    def __lt__(self, other):
+        return self.number < other.number
+        
     def setNumber(self, number):
             self.number=number   
     
@@ -77,6 +89,9 @@ class Room:
             
     def getDays(self):
                 return self.times  
+            
+    def getDays2(self):
+                return self.times.values()  
         
     def addTimesDays(self, days, time):
         days= days.replace(" ", "")
@@ -106,6 +121,11 @@ class Building:
     def getRooms(self):
                 return self.rooms
             
+    def getRooms2(self):
+                roomsOrdered=list(self.rooms.values())
+                roomsOrdered.sort()
+                return roomsOrdered
+            
     def getRoomNumbers(self):
         return self.rooms.keys()
         
@@ -117,6 +137,18 @@ class Building:
             self.rooms[number] =Room(number)
             
         self.rooms.get(number).addTimesDays(days, times)
+        
+    def __eq__(self, other):
+        if self is other:
+            return True
+        elif type(self) != type(other):
+            return False
+        else:
+            return self.name == other.name
+        
+        
+    def __lt__(self, other):
+        return self.name < other.name
     
 
 
@@ -145,6 +177,11 @@ class Scraper(object):
     
     def getBuildings(self):
         return self.buildings
+    
+    def getBuildingsOrdered(self):
+        orderedBuildings=list(self.buildings.values())
+        orderedBuildings.sort()
+        return orderedBuildings
     
     def getRooms(self, building):
         b=self.buildings.get(building)
@@ -221,7 +258,7 @@ class Scraper(object):
     def parse_room_building(self, building_number):
         building = ""
         room = ""
-        invalid = ["RGYM", "TRACKFIELD", "ENGR", "TBA", "T B A", "ON LINE", "ONLINE", "IV", "BSBL", "RECEN", "SB HARBR", "ZODO", "REGYM", "EVENTCENTR", "GOLF", "STORKFIELD", "SWIM"]
+        invalid = ["RGYM", "TRACKFIELD", "ENGR", "TBA", "T B A", "ON LINE", "ONLINE", "IV", "BSBL", "RECEN", "SB HARBR", "ZODO", "REGYM", "EVENTCENTR", "GOLF", "STORKFIELD", "SWIM", "SFTBLFIELD"]
         if any(word in building_number for word in invalid):
             return "invalid", "invalid"
         if " " in building_number:
@@ -276,15 +313,12 @@ class Scraper(object):
 #scrape=Scraper()
 #scrape.iterateAnthropology()
 
-#for building in scrape.getBuildings():
- #   print("\n",building)
- #   for room in scrape.getRooms(building):
-  #      print(room)
-   #     for day in scrape.getDays(building, room):
-    #        print(day)
-    #        for time in scrape.getTimes(building, room, day):
-     #           print(time.getStart(), " - ", time.getEnd())  
-      #          print(time.getStartInt(), " - ", time.getEndInt())
+#for building in scrape.getBuildingsOrdered():
+ #   print("\n",building.getName())
+  #  for room in building.getRooms2():
+   #     print(room.getNumber())
+    #    for day in room.getDays2():
+     #       print(day.getDay())
+      #      print(day.timeString())
     
     
-
