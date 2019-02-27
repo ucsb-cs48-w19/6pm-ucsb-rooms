@@ -1,0 +1,16 @@
+
+<span id="pageContent_classSchedule" style="display: inline-block; border-color: #D6D6D6; border-width: 1px; border-style: None; width: 100%; border-collapse: collapse;">
+
+{% for i in range(room.time_list.__len__()) %}
+		<div class="timeBox" style="height: {{(room.time_list[i][1]-room.time_list[i][0]) * 2 }}px; background-color: #FFE6DA;">
+			Class from: {{ ((room.time_list[i][0] // 60) * 100) + (room.time_list[i][0] % 60) }} <br>
+			To: {{ ((room.time_list[i][1] // 60) * 100) + (room.time_list[i][1] % 60) }}
+		</div>
+		{% if room.time_list.__len__() > i + 1 %}
+				<div class="timeBox" style="height: {{ (room.time_list[i+1][0]-room.time_list[i][1]) * 2 }}px; background-color: #AFBDCB;">
+				Free {{ (room.time_list[i][1] // 60) * 100 +  room.time_list[i][1] % 60 }}-{{ (room.time_list[i+1][0] // 60) * 100 +  room.time_list[i+1][0] % 60 }}
+				</div>
+		{% endif %}
+{% endfor %}
+
+</span>
