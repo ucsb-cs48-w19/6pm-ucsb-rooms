@@ -1,9 +1,6 @@
 from flask import render_template, request, jsonify
-
 from app import app
-
 from app import db
-
 from models import Building, Room
 
 from app.forms import LoginForm
@@ -29,11 +26,12 @@ def result():
         return render_template("result.html", result=result)
     elif request.method == 'GET':
         result = request.args.to_dict()
+        result['Building'] = request.args.get('Building').upper();
         #print("THIS IS THE DIR========",dir(result))
         if (result.get("Day") == "TODAY"):
             result["Day"] = get_day_pst()
         #print("RESULTS ARE A: ", help(result))
-        name = request.args.get('Building')
+        name = result.get("Building")
         allBuildings = ""
         try:
             # print(Room.query.first())
