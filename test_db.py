@@ -41,8 +41,12 @@ def test_free_time():
 	assert rm4.free_time(0, "3:20pm") == "Free Rest of Day"
 	
 def test_add_time():
-	Bd0 = Building()
+	Bd0 = Building("HSSM")
 	assert bd0.id == 1
+
+def test_add_time():
+	Bd1 = Building("LSB")
+	assert bd1.name == "LSB"
 
 
 	
