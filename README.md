@@ -70,36 +70,29 @@ Deploying requiremements and versions listed below. The version doesn't matter t
 5. Install requirements from requirements.txt: `$ pip3 install -r requirements.txt`
 
 
-## **Using the Heroku Database**
-**Note you cannot do this step unless you are a collaborator on the Heroku app**
-**Skip this step if you are not a collaborator**
+## **Using a Heroku Database**
+**Note you cannot do this step unless you are a have a Heroku app**
 Go to Heroku, login, and click on this app. Click on the resources tab than click on Heroku Postgres. Click on the settings tab.
 Click on view credentials, then copy the URI.
 In terminal use the command: export DATABASE_URL='credentials'. Replacing 'credentials' with the URI
 
 
-## **Building the Database locally**
-We cannot give everyone the database credentials. To build the database locally and run the app follow these steps:
-1. If you want to build the entire database it will take 20-40 minutes. 
-If you would like to build a smaller version of the database that will take 2-3 and still give you a lot of function. 
+## **Building the Database**
+To build the database follow these steps:
+1. If you want to build the entire database it will take 20-40 minutes.
+If you would like to build a smaller version of the database that will take 2-3 and still give you a lot of function.
 To build the smaller database skip this step. To build the larger one, in file buildDatabase.py, change line 10 from:scrape.iterateAnthropology() to scrape.iterateSubjects()
-2. build the database locally by typing on terminal: 
+2. build the database locally by typing on terminal:
 `python3 buildDatabase.py`
 
- This database will be built using SQLite to site.db
+ This database will be built using SQLite to site.db or built to your app's Heroku database
 
 
 ## **Running Locally**
-
 For developers, after cloning the repo and installing dependancies, run command `python3 app.py` to start the project locally.
 Go to the url http://0.0.0.0:5000/
 
-## **Deploying to a new Heroku app**
-1. Install heroku CLI
-2. Login
-3. Create a Heroku app
-4. Set up a heroku remote by running the command: heroku git:remote -a "name of app"
-5. do a git add,commit,push to the heroku app. For the push command use: git push heroku "your current branch":master
-6. configure the heroku app to a heroku database by running this command: heroku addons:create heroku-postgresql:hobby-dev
-7. migrate the database over to heroku using the shell script. Run the command ./migrateDatabase.sh
-8. run the app on heroku and enjoy: do this by going to the app on Heroku and hitting deploy
+## **Deploy to Heroku**
+1. Set up a heroku remote by running the command: heroku git:remote -a "name of app"
+2. Git add, commit, push everything to your heroku app. For the push command use: git push heroku "your current branch":master
+3. Run the app on heroku and enjoy: do this by going to the app on Heroku and hitting deploy
