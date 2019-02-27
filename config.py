@@ -9,8 +9,9 @@ class Config(object):
     CSRF_ENABLED = True
     # #SECRET_KEY = 'this-really-needs-to-be-changed'
     # Uncomment this to enable database connection.
-    
+
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or  'sqlite:///site.db'
+    #SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
     print("Database URL configured as:", SQLALCHEMY_DATABASE_URI)
 
     #SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'

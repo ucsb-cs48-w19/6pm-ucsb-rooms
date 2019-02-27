@@ -10,6 +10,10 @@ from app.time_formatter import get_time_pst
 # from datetime import date
 # import calendar
 
+@app.route("/test")
+def test():
+    return render_template('test.html')
+
 @app.route("/")
 def home():
     #form = LoginForm()
@@ -68,14 +72,14 @@ def room():
     #building = Building.query.filter_by(name=name).first()
 
     rn = request.args.get('Room')
-    
-    room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
+
+    room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first(
     room.free_time(result.get("Day"),get_time_pst())
     print(room.time_list)
 #     print(room.free_time(result.get("Day"),get_time_pst()))
 
     return render_template("room.html", result=result, room=room)
-    
+
 
 @app.route("/add")
 def add_building():

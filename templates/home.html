@@ -1,5 +1,10 @@
 {% extends 'layout.html' %} {% block body %}
-
+<head>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<!-- Brand -->
@@ -29,13 +34,32 @@
 				<p>Building</p><br /> <span class="myarrow"><input autofocus
 					onClick="this.select();" class="inputField" type="text"
 					maxlength="20" list="buildingList" name="Building" placeholder="{{ placeholder }}" style=""/></span>
-					
 
 				<datalist id="buildingList">
+
 					{% for building in buildings %}
 				 		<option> {{ building.name }} </option>
 					{% endfor %}
+
 				</datalist>
+
+				<!-- used to make a dropbar for browsers that dont use datalist object -->
+				<script>
+						$(document).ready(function () {
+							var nativedatalist = !!('list' in document.createElement('input')) &&
+								!!(document.createElement('datalist') && window.HTMLDataListElement);
+
+							if (!nativedatalist) {
+								$('input[list]').each(function () {
+									var availableTags = $('#' + $(this).attr("list")).find('option').map(function () {
+										return this.value;
+									}).get();
+									$(this).autocomplete({ source: availableTags });
+								});
+							}
+						});
+					</script>
+
 			</p>
 <!-- 			<p> -->
 <!-- 				Room Number<br /> <input onClick="this.select();" -->
@@ -60,7 +84,9 @@
 			<p>
 				<input type="submit" value="Submit" />
 			</p>
-		</form>
+		</div>
 	</div>
-</div>
+
+		</form>
+
 {% endblock %}
