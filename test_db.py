@@ -42,7 +42,7 @@ def test_free_time():
 	
 def test_add_time():
 	Bd0 = Building()
-	assert bd0.id = 1
+	assert bd0.id == 1
 
 
 	
