@@ -45,7 +45,7 @@ def test_add_time():
 	assert bd0.id == 1
 
 def test_add_time():
-	Bd1 = Building("LSB")
+	bd1 = Building("LSB")
 	assert bd1.__init__("LSB") == "LSB"
 
 
