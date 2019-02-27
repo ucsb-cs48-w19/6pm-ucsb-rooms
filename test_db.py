@@ -46,7 +46,7 @@ def test_add_time():
 
 def test_add_time():
 	Bd1 = Building("LSB")
-	assert bd1.name == "LSB"
+	assert bd1.__init__("LSB") == "LSB"
 
 
 	
