@@ -1,7 +1,12 @@
 {% extends 'layout.html' %} {% block body %}
 <head>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	<!-- <link rel="stylesheet" href="style.css"/> -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script> -->
 </head>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -34,12 +39,14 @@
 					maxlength="20" list="buildingList" name="Building" placeholder="{{ placeholder }}" style=""/></span>
 
 				<datalist id="buildingList">
-					<select style="display: none;">
+
 					{% for building in buildings %}
 				 		<option> {{ building.name }} </option>
 					{% endfor %}
-					</select>
+
 				</datalist>
+
+				<!-- used to make a dropbar for browsers that dont use datalist object -->
 				<script>
 						$(document).ready(function () {
 							var nativedatalist = !!('list' in document.createElement('input')) &&
@@ -80,7 +87,23 @@
 			<p>
 				<input type="submit" value="Submit" />
 			</p>
-		</form>
+		</div>
 	</div>
-</div>
+			<!-- <script>
+			(function() {
+			    var inputs = document.getElementsByTagName('input');
+			    for( var i = 0; i < inputs.length; i++ ) {
+			        var input = inputs[i];
+			        input.onchange = function(evt) {
+			            var elem = evt ? evt.target : window.event.srcElement;
+			            // alert('new value: ' + elem.value);
+			        };
+			    }
+			}());
+			</script>
+
+			<script src="datalist.polyfill.min.js"></script> -->
+
+		</form>
+
 {% endblock %}

@@ -11,6 +11,10 @@ from app.forms import LoginForm
 from datetime import date
 import calendar
 
+@app.route("/test")
+def test():
+    return render_template('test.html')
+
 @app.route("/")
 def home():
     #form = LoginForm()
@@ -31,11 +35,11 @@ def result():
         if (result.get("Day") == "TODAY"):
             my_date = date.today()
             result["Day"] = calendar.day_name[my_date.weekday()]
-            
+
             if (result["Day"] == "Thursday"):
                 result["Day"] = "R"
             else:
-               result["Day"] = result["Day"][0] 
+               result["Day"] = result["Day"][0]
         #print("RESULTS ARE A: ", help(result))
         name = request.args.get('Building')
         allBuildings = ""
@@ -69,18 +73,18 @@ def room():
     #building = Building.query.filter_by(name=name).first()
 
     rn = request.args.get('Room')
-    
+
     room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
     print(room)
-    
+
 #     for room in building.rooms:
 #         if(room.roomnumber.strip() == request.args.get('Room')):
 #             currentRoom = Room
 #             break
-#         
+#
     #room = building.rooms.__getitem__(request.args.get('Room'))
     return render_template("room.html", result=result, room=room)
-    
+
 
 @app.route("/add")
 def add_building():
