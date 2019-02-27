@@ -30,7 +30,6 @@ class Room(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     roomnumber = db.Column(db.String, nullable=False)
-    room_type = db.Column(db.String)
 
     days = db.relationship('Day', backref='owning_room')
 

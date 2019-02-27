@@ -14,7 +14,27 @@
 	<div class="messageArea">
 		<h1>Result</h1>
 		<h2> You searched for: {{ result.get("Building") }} </h2>
+		<h2> The time is: {{ time }}</h2>
 		<a href="/">Search for another building</a>
+
+		<form action="/result" autocomplete="off" method="GET">
+			<input type="hidden" name="Building" value='{{ result.get("Building") }}' />
+			<p>
+				<select id="dayList" name="Day" onchange="this.form.submit()">
+					<option selected value="TODAY">Select Another Day</option>
+					<option value="TODAY">Today</option>
+					<option value="M">Monday</option>
+					<option value="T">Tuesday</option>
+					<option value="W">Wednesday</option>
+					<option value="R">Thursday</option>
+					<option value="F">Friday</option>
+					<!-- <option value="S">Saturday</option>
+					<option value="SU">Sunday</option> -->
+				</select>
+			</p>
+		</form>
+
+		
 		{% for room in rooms %}
 				 <a href="/room?BuildingID={{ building.id }}&Room={{ room.roomnumber }}&Day={{ result.get('Day') }}">
 					 <div class="roomLink">
