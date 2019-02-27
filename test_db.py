@@ -39,6 +39,10 @@ def test_time_in_minutes3():
 def test_free_time():
 	rm4 = Room(2345, 5)
 	assert rm4.free_time(0, "3:20pm") == "Free Rest of Day"
+	
+def test_add_time():
+	Bd0 = Building()
+	assert bd0.id = 1
 
 
 	
