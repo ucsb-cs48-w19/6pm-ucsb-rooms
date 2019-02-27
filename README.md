@@ -1,6 +1,6 @@
 # **Where is Every1?**
 
-# python-travis-ci-mvp
+# python-travis-ci
 Product testing of Python code with Travis-CI
 
 
