@@ -1,5 +1,13 @@
 # **Where is Every1?**
 
+# python-travis-ci
+Product testing of Python code with Travis-CI
+
+
+<a href="https://travis-ci.org/ucsb-cs48-w19/6pm-ucsb-rooms">
+<img src="https://travis-ci.org/ucsb-cs48-w19/6pm-ucsb-rooms.svg?branch=master" alt="Build Status">
+</a>
+
 ## Summary
 
 Find a nice place to study, meet, and utilize space at UCSB all in one app.
@@ -47,6 +55,8 @@ Deploying requiremements and versions listed below. The version doesn't matter t
 * Werkzeug(0.14.1)
 * urllib3(1.24.1)
 * WTForms(2.2.1)
+* pytz(2018.9)
+* pytest(4.3.0)
 
 ## **Installation Steps**
 **On Linux:**
