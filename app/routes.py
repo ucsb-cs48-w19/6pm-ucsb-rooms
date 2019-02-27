@@ -10,9 +10,6 @@ from app.time_formatter import get_time_pst
 # from datetime import date
 # import calendar
 
-@app.route("/test")
-def test():
-    return render_template('test.html')
 
 @app.route("/")
 def home():
@@ -48,7 +45,7 @@ def result():
                 rooms = building.rooms
                 for r in rooms:
                     r.free_time(result.get("Day"), get_time_pst())
-                     
+
                 rooms.sort()
 #                 print("YOUR ROOMS SORTED LOOK LIKE",rooms)
              else:
@@ -73,7 +70,7 @@ def room():
 
     rn = request.args.get('Room')
 
-    room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first(
+    room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
     room.free_time(result.get("Day"),get_time_pst())
     print(room.time_list)
 #     print(room.free_time(result.get("Day"),get_time_pst()))
