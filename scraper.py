@@ -122,7 +122,7 @@ class Building:
                 return self.rooms
             
     def getRooms2(self):
-                roomsOrdered=list(self.rooms.values())
+                roomsOrdered=list(set(self.rooms.values()))
                 roomsOrdered.sort()
                 return roomsOrdered
             
@@ -179,7 +179,7 @@ class Scraper(object):
         return self.buildings
     
     def getBuildingsOrdered(self):
-        orderedBuildings=list(self.buildings.values())
+        orderedBuildings=list(set(self.buildings.values()))
         orderedBuildings.sort()
         return orderedBuildings
     
