@@ -1,7 +1,7 @@
 import os
 import tempfile
 import pytest
-from __init__ import db
+from app import __init__
 from models import Building, Room, Day
 
 
