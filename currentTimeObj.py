@@ -40,7 +40,7 @@ def getAvailableTime(timeA, timeE):
     ##
 
     #print("you have",remainHours,"hour/s",remainMinutes, "minutes left for this room")
-    return getAvailableTime
+    return availableTimeInMins
 
 #timeA = 150   # 0150 or 1:50am
 #timeE = 520   # 0520 or 5:20am
