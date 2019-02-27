@@ -55,6 +55,8 @@ Deploying requiremements and versions listed below. The version doesn't matter t
 * Werkzeug(0.14.1)
 * urllib3(1.24.1)
 * WTForms(2.2.1)
+* pytz(2018.9)
+* pytest(4.3.0)
 
 ## **Installation Steps**
 **On Linux:**
