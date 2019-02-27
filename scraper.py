@@ -6,44 +6,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import Select
 import re
 import sys
-
+from datetime import datetime
 
 #SCROLL TO THE BOTTOM FOR TIPS ON USING THE SCRAPER
 #SEE COMMENTS AT THE BOTTOM
-
-class Time:
-        
-        #A Class Time has a starting time and an ending time (string, i.e. "12:50pm")
-        #Belongs to a Day
-        def __init__(self, start, end):
-                self.start=start
-                self.end=end
-        def setStart(self, start):
-            self.start=start
-        def setEnd(self, end):
-            self.end=end    
-        def getStart(self):
-                return self.start
-        def getEnd(self):
-                return self.end
-        def toString(self):
-            return self.__repr__()
-
-        def timeStoi(self, input):
-            string=input.split(":")[0]+input.split(":")[1][0:2]
-            number=int(string)
-            if "pm" in input:
-                number=number+1200
-            return number  
-        
-        def __repr__(self):
-            return "#" + self.start + "-" + self.end + "#"
-        
-        def getStartInt(self):
-                return self.timeStoi(self.start)
-        def getEndInt(self):
-                return self.timeStoi(self.end)
-            
 class Day:
     
     #A class room Day has a list of class times.
@@ -62,25 +28,36 @@ class Day:
     def getDay(self):
                 return self.day
     def getTimes(self):
-                return self.times  
-            
-            
-    
-    def addTime(self,t):
-        start=t.split(" - ")[0]
-        end=t.split(" - ")[1]
-        
-        #avoid null pointer when checking for repeats
-        if not self.times:
-            self.times.append(Time(start, end))
-         #no repeats   
-        elif any(start!=time.getStart() for time in self.times):
-            self.times.append(Time(start, end))
+                return self.times
 
-    def printClassDay(self):
-        for time in self.times:
-            print(time.getStart(), " - ", time.getEnd())
-        
+    """
+    New Methods added: converting times to string, adding times as list
+    of ints, sorting times as ints
+    """
+    def pairwise(self, iteratable):
+        a = iter(iteratable)
+        return zip(a, a)
+    # Method to remove the
+    def timeString(self):
+        s = ""
+        for x, y in self.pairwise(self.times):
+            s += "#" + datetime.strptime(str(x), '%H%M').strftime('%I:%M%p').lstrip("0") + "-" + datetime.strptime(str(y), '%H%M').strftime('%I:%M%p').lstrip("0") + "#"
+        return s
+
+    # Method to add time as list of ints
+    def addTime(self, t):
+        t = t.replace(" ", "")
+        split = re.split(r"-", t)
+        firstTime = int(datetime.strptime(str(split[0]), '%I:%M%p').strftime('%H%M'))
+        secondTime = int(datetime.strptime(str(split[1]), '%I:%M%p').strftime('%H%M'))
+        self.times.append(firstTime)
+        self.times.append(secondTime)
+    #Method to sort list of ints and remove duplicates
+    def sortTime(self):
+        self.times = list(set(self.times))
+        self.times.sort()
+
+
 class Room:
     
     #A class Room has a list of days
@@ -88,6 +65,18 @@ class Room:
     def __init__(self, number):
         self.number=number
         self.times= {}
+        
+    def __eq__(self, other):
+        if self is other:
+            return True
+        elif type(self) != type(other):
+            return False
+        else:
+            return self.number == other.number
+        
+        
+    def __lt__(self, other):
+        return self.number < other.number
         
     def setNumber(self, number):
             self.number=number   
@@ -100,6 +89,9 @@ class Room:
             
     def getDays(self):
                 return self.times  
+            
+    def getDays2(self):
+                return self.times.values()  
         
     def addTimesDays(self, days, time):
         days= days.replace(" ", "")
@@ -129,6 +121,11 @@ class Building:
     def getRooms(self):
                 return self.rooms
             
+    def getRooms2(self):
+                roomsOrdered=list(self.rooms.values())
+                roomsOrdered.sort()
+                return roomsOrdered
+            
     def getRoomNumbers(self):
         return self.rooms.keys()
         
@@ -140,6 +137,18 @@ class Building:
             self.rooms[number] =Room(number)
             
         self.rooms.get(number).addTimesDays(days, times)
+        
+    def __eq__(self, other):
+        if self is other:
+            return True
+        elif type(self) != type(other):
+            return False
+        else:
+            return self.name == other.name
+        
+        
+    def __lt__(self, other):
+        return self.name < other.name
     
 
 
@@ -169,6 +178,11 @@ class Scraper(object):
     def getBuildings(self):
         return self.buildings
     
+    def getBuildingsOrdered(self):
+        orderedBuildings=list(self.buildings.values())
+        orderedBuildings.sort()
+        return orderedBuildings
+    
     def getRooms(self, building):
         b=self.buildings.get(building)
         return b.rooms
@@ -183,8 +197,9 @@ class Scraper(object):
     def iterateAnthropology(self):
 
         si = Select(self.driver.find_element_by_id("ctl00_pageContent_courseList"))
-        print("\nNOTE: Takes about 1 minunte to scrape Anthropology list of data")
-
+        print("\nNOTE: Takes about 1 minute to scrape Anthropology list of data")
+        sg = Select(self.driver.find_element_by_id("ctl00_pageContent_dropDownCourseLevels"))
+        sg.select_by_index(2)
         num =len(si.options)
 
         s1=Select(self.driver.find_element_by_id("ctl00_pageContent_courseList"))
@@ -199,7 +214,8 @@ class Scraper(object):
 
         si = Select(self.driver.find_element_by_id("ctl00_pageContent_courseList"))
         print("\nNOTE: Takes about 10-15 mins to scrape full list of data") 
-
+        sg = Select(self.driver.find_element_by_id("ctl00_pageContent_dropDownCourseLevels"))
+        sg.select_by_index(2)
         num =len(si.options)
         
         for index in range(0, num):
@@ -230,8 +246,9 @@ class Scraper(object):
                
             #print("\n",building_number, days, times)
             building, room=self.parse_room_building(building_number) 
-            
-            if (building!="invalid"):
+            status = self.driver.find_element_by_xpath("//*[@class='gridview']/tbody/tr["+str(index)+"]/td[4]").text
+
+            if (building!="invalid" and status.strip()!="Cancelled"):
                 if (building not in self.buildings):
                    self.buildings[building] =Building(building.strip())
                 self.buildings.get(building).addToRoom(room.strip(), days, times) 
@@ -242,6 +259,31 @@ class Scraper(object):
         self.buildings.get(building).getRooms().get(room).getDays().get(day[0]).printClassDay()
             
     def parse_room_building(self, building_number):
+        building = ""
+        room = ""
+        invalid = ["RGYM", "TRACKFIELD", "ENGR", "TBA", "T B A", "ON LINE", "ONLINE", "IV", "BSBL", "RECEN", "SB HARBR", "ZODO", "REGYM", "EVENTCENTR", "GOLF", "STORKFIELD", "SWIM", "SFTBLFIELD"]
+        if any(word in building_number for word in invalid):
+            return "invalid", "invalid"
+        if " " in building_number:
+            split = building_number.split(" ")
+            building = split[0]
+            room = split[1]
+        else:
+            split = re.findall(r"[^\W\d_]+|\d+", building_number)
+            if len(split) > 2:
+                split[1] = split[1] + split[2]
+            elif len(split) == 1:
+                building = split[0]
+                room = "N/A"
+            elif len(split) == 2:
+                building = split[0]
+                room = split[1]
+            else:
+                building = "invalid"
+                room = "invalid"
+        return building, room
+    
+    def parse_room_building2(self, building_number):
         
         invalid_list=["ONLINE", "ON LINE", "T B A","NO ROOM", "TBA" ,""]
         
@@ -271,18 +313,15 @@ class Scraper(object):
 #   (This takes about 15 mins to run)
 #   i.e.
    
-scrape=Scraper()
-scrape.iterateAnthropology()
+#scrape=Scraper()
+#scrape.iterateAnthropology()
 
-for building in scrape.getBuildings():
-    print("\n",building)
-    for room in scrape.getRooms(building):
-        print(room)
-        for day in scrape.getDays(building, room):
-            print(day)
-            for time in scrape.getTimes(building, room, day):
-                print(time.getStart(), " - ", time.getEnd())  
-                print(time.getStartInt(), " - ", time.getEndInt())
+#for building in scrape.getBuildingsOrdered():
+ #   print("\n",building.getName())
+  #  for room in building.getRooms2():
+   #     print(room.getNumber())
+    #    for day in room.getDays2():
+     #       print(day.getDay())
+      #      print(day.timeString())
     
     
-

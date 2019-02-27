@@ -14,39 +14,18 @@
 	<div class="messageArea">
 		<h1>Result</h1>
 		<h2> You searched for: {{ result.get("Building") }} </h2>
-		<p> 
+		<a href="/">Search for another building</a>
 		{% for room in rooms %}
-			<tr>
-				 <th> <a href="/room?BuildingID={{ building.id }}&Room={{ room.roomnumber }}&Day={{ result.get('Day') }}">
-				 Room: {{ room.roomnumber }} on day: {{ result.get('Day') }}
-				 </a> <br> </th>
-				 
-<!-- 				 {% for day in room.days %} -->
-<!-- 				 	{% if day.name == result.get("Day") %} -->
-<!-- 						<tr> -->
-<!-- 					 	<th> {{ day }} <br> </th> -->
-<!-- 						</tr> -->
-<!-- 					{% endif %} -->
-<!-- 				{% endfor %} -->
-			</tr>
+				 <a href="/room?BuildingID={{ building.id }}&Room={{ room.roomnumber }}&Day={{ result.get('Day') }}">
+					 <div class="roomLink">
+					 	Room: {{ room.roomnumber }} on day: {{ result.get('Day') }} 
+					 	<br>
+					 	{{ room.time_room_free }}
+					 </div>
+				 </a> 
 		{% endfor %}
-		
-	 	</p>
-	 	
-		<table>
-         {% for key, value in result.items() %}
-            <tr>
-               <th> {{ key }}: </th>
-               <td> {{ value }} </td>
-            </tr>
-         {% endfor %}
-
-        </table>
 
 		<a href="/">Search for another building</a>
-
-<!--		{% include 'calendar.html' %} -->
-
 	</div>
 
 

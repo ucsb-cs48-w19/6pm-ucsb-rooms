@@ -1,15 +1,14 @@
 from flask import render_template, request, jsonify
-
 from app import app
-
 from app import db
-
 from models import Building, Room
 
 from app.forms import LoginForm
+from app.time_formatter import get_day_pst
+from app.time_formatter import get_time_pst
 
-from datetime import date
-import calendar
+# from datetime import date
+# import calendar
 
 @app.route("/")
 def home():
@@ -27,32 +26,32 @@ def result():
         return render_template("result.html", result=result)
     elif request.method == 'GET':
         result = request.args.to_dict()
+        result['Building'] = request.args.get('Building').upper();
         #print("THIS IS THE DIR========",dir(result))
         if (result.get("Day") == "TODAY"):
-            my_date = date.today()
-            result["Day"] = calendar.day_name[my_date.weekday()]
-            
-            if (result["Day"] == "Thursday"):
-                result["Day"] = "R"
-            else:
-               result["Day"] = result["Day"][0] 
+            result["Day"] = get_day_pst()
         #print("RESULTS ARE A: ", help(result))
-        name = request.args.get('Building')
+        name = result.get("Building")
         allBuildings = ""
         try:
             # print(Room.query.first())
             # print(Building.query.first().rooms)
 
              building = Building.query.filter_by(name=name).first()
-             print("We got the building:",name,". It look like:",building)
+#              print("We got the building:",name,". It look like:",building)
              rooms = []
              if (building != None):
                 rooms = building.rooms
+                for r in rooms:
+                    r.free_time(result.get("Day"), get_time_pst())
+                     
+                rooms.sort()
+#                 print("YOUR ROOMS SORTED LOOK LIKE",rooms)
              else:
                  buildings = Building.query.all()
                  return render_template("home.html", placeholder='Invalid Building', buildings=buildings)
 
-             return render_template("result.html", result=result, building=building, rooms=rooms)
+             return render_template("result.html", result=result, building=building, rooms=rooms)#get_time_pst())
         except Exception as e:
             return(str(e))
 
@@ -71,14 +70,10 @@ def room():
     rn = request.args.get('Room')
     
     room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
-    print(room)
-    
-#     for room in building.rooms:
-#         if(room.roomnumber.strip() == request.args.get('Room')):
-#             currentRoom = Room
-#             break
-#         
-    #room = building.rooms.__getitem__(request.args.get('Room'))
+    room.free_time(result.get("Day"),get_time_pst())
+    print(room.time_list)
+#     print(room.free_time(result.get("Day"),get_time_pst()))
+
     return render_template("room.html", result=result, room=room)
     
 

@@ -1,9 +1,10 @@
 from app import db
 import time
+from math import floor
+
 
 class Building(db.Model):
     __tablename__ = "building"
-
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), unique=True, nullable=False)
@@ -31,17 +32,85 @@ class Room(db.Model):
     roomnumber = db.Column(db.String, nullable=False)
     room_type = db.Column(db.String)
 
-    days = db.relationship('Day', backref='owning_room', lazy=True)
+    days = db.relationship('Day', backref='owning_room')
 
     building_id = db.Column(db.Integer, db.ForeignKey("building.id"), nullable=False)
 
+    # Note, 1440 is the maximum number of minutes any room can be free, because it's 24*60.
+    minutes_free = 1440
+    
+    time_room_free = "Free Rest of Day"
+    time_list = []
 #    building = db.relationship("Building", backref=db.backref(
 #        "room", order_by=id), lazy=True)
 
-    def is_free(self, day, time):
-        cur_day = self.days.__getitem__(day)
-        times = cur_day.ranges.split('#')
-        print(times)
+    def __lt__(self, other):
+        return other.minutes_free < self.minutes_free
+
+    def time_in_minutes(self, input):
+        string = input.split(":")[0] + input.split(":")[1][0:2]
+        number = int(string)
+        if "PM" in input and number < 1200:
+            number = number + 1200
+        elif "AM" in input and number >= 1200 and number <= 1259:
+            number = number - 1200
+#         print("Number is:", number)
+        number = (number // 100) * 60 + int(string[len(string)-2:])
+        return number
+
+    def free_time(self, day, time):
+        """ 
+        This function generates the amount of time the room is free. 
+        It stores the free time locally in time_room_free
+        It stores the minutes free in minutes_free
+        It stores the list of all class times as tuples in time_list.
+        These values are later used to generate info about the rooms in the templates. The use case is to run this before doing any analysis on the rooms.
+        """
+        # Start out with a fresh list of times to generate. This prevents the list from getting full if this function is called more than once.
+        self.time_list.clear()
+#         self.time_list.append((840,915))
+#         print("Time is:",time)
+        time = self.time_in_minutes(time)
+#         print("Day is:", day, "Time is:", time, "Room is:", self.roomnumber)
+        today = 0
+
+        for d in self.days:
+            if d.name == day:
+                today = d 
+
+        if today == 0:
+            return "Free Rest of Day"
+        else:
+
+            # Parse out all the times ranges, so that we can use them to build the calendar later. 
+            times = today.ranges.split("##")
+            for i in range(len(times)):
+                times[i] = times[i].replace("#", "")
+                t = times[i].split('-')
+                start = self.time_in_minutes(t[0])
+                end = self.time_in_minutes(t[1])
+                self.time_list.append((start,end))
+            
+            for class_time in self.time_list:
+                start = class_time[0]
+                end = class_time[1]
+#                 print("Time is:",time,"Start is:", start)
+
+                if time < start:
+
+                    minutes_free = (start - time) % 60
+                    hours_free = (start - time) // 60
+
+                    self.minutes_free = start - time
+                    self.time_room_free = "Free for: " + str(hours_free) + " hrs " + str(minutes_free) + " mins"
+                    return self.time_room_free
+                elif time < end:
+                    minutes_free = (end - time) % 60
+                    hours_free = (end - time) // 60
+                    self.minutes_free = -(end - time)
+                    self.time_room_free = "Not free for: " + str(hours_free) + " hrs " + str(minutes_free) + " mins"
+                    return self.time_room_free
+        return "Free Rest of Day"
 
     def __repr__(self):
         return "Room is: {}, Building is: {}".format(self.roomnumber, self.owning_building.name)
@@ -58,6 +127,7 @@ class Room(db.Model):
             'room_type': self.room_type
             }
 
+
 class Day(db.Model):
     __tablename__ = "day"
 
@@ -71,7 +141,7 @@ class Day(db.Model):
         self.ranges = self.ranges + time
 
     def __repr__(self):
-        #return "Day is: {}, Time ranges are: {}, Owning room is: {}".format(self.name, self.ranges, self.owning_room.roomnumber)
+        # return "Day is: {}, Time ranges are: {}, Owning room is: {}".format(self.name, self.ranges, self.owning_room.roomnumber)
         return "On: {} Time ranges are: {}".format(self.name, self.ranges)
 
     def __init__(self, name, ranges, room_id):
