@@ -18,6 +18,6 @@ def test_database2():
 	assert Day.__tablename__ == "day"
 
 def test_time_in_minutes():
-    rm = Room()
-
+    rm = Room(3515, 1)
     assert rm.time_in_minutes("12:03PM") == 723
+	
