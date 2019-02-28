@@ -20,7 +20,7 @@
 			<h1> {{ room.time_room_free }} </h1>
 		</div>
 		<!--
-				<p>  	 
+				<p>
 			 {% for day in room.days %}
 			 {% if day.name == result.get("Day") %}
 				<tr>
@@ -31,10 +31,10 @@
 	 	</p>
 		  -->
 
-		<a href="/result?Building={{ room.owning_building.name }}&Day={{ result.get('Day') }}">
+		<a href="/result?Building={{ room.owning_building.name }}&Room=&Day={{ result.get('Day') }}">
 				<br>Search for another Room<br>
 		</a>
-		<a href="/">			
+		<a href="/">
 				Search for another Building<br><br>
 		</a>
 		<form action="/room" autocomplete="off" method="GET">

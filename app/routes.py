@@ -17,7 +17,7 @@ def home():
     #return render_template('home.html', form=form)
     buildings = Building.query.all()
 
-    return render_template('home.html', placeholder="Building", buildings=buildings)
+    return render_template('home.html', placeholder="Building", room_placeholder="", buildings=buildings)
 
 
 @app.route('/result', methods=['POST', 'GET'])
@@ -63,6 +63,9 @@ def result():
                          result["Day"] = get_day_pst()
                      room.free_time(result.get("Day"),get_time_pst())
                      return render_template("room.html", result=result, room=room, time=time)
+                 else:
+                    buildings = Building.query.all()
+                    return render_template("home.html", room_placeholder='Invalid Room number', buildings=buildings)
 
              return render_template("result.html", result=result, building=building, rooms=rooms, time=get_time_pst())#get_time_pst())
         except Exception as e:
