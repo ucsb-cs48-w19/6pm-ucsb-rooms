@@ -28,7 +28,7 @@ for building in scrape.getBuildingsOrdered():
 
         if (not (room in b.rooms)):
                 print("Adding:", room.number)
-                r1 = Room(roomnumber=room.number.rstrip(),room_type='trashy_room_standard', building_id=b.id)
+                r1 = Room(roomnumber=room.number.rstrip(), building_id=b.id)
                 db.session.add(r1)
 
 db.session.commit()
