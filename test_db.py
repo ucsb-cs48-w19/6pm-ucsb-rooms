@@ -40,9 +40,7 @@ def test_free_time():
 	rm4 = Room(2345, 5)
 	assert rm4.free_time(0, "3:20pm") == "Free Rest of Day"
 	
-def test_building():
-	Bd0 = Building("HSSM")
-	assert Bd0.id == 1
+
 
 
 
