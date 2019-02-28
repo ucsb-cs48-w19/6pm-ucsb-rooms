@@ -42,7 +42,7 @@ def test_free_time():
 	
 def test_building():
 	Bd0 = Building("HSSM")
-	assert bd0.id == 1
+	assert Bd0.id == 1
 
 
 
