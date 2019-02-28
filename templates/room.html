@@ -13,12 +13,14 @@
 
 	<div class="messageArea">
 		<h2> You searched for room: {{ result.get("Room") }} </h2>
-		<h2> In building {{ room.owning_building.name }}
+		<h2> In building: {{ room.owning_building.name }}
 		<h2> The day is: {{ result.get("Day") }} </h2>
+		<h2> The time is: {{ time }}</h2>
 		<div class="timeBox" style="background-color: #AFBDCB;">
 			<h1> {{ room.time_room_free }} </h1>
 		</div>
-		<p>  	 
+		<!--
+				<p>  	 
 			 {% for day in room.days %}
 			 {% if day.name == result.get("Day") %}
 				<tr>
@@ -27,18 +29,31 @@
 			{% endif %}
 			{% endfor %}
 	 	</p>
+		  -->
 
 		<a href="/result?Building={{ room.owning_building.name }}&Day={{ result.get('Day') }}">
-			<div class="roomLink">
-				Search for another Room
-			</div>
+				<br>Search for another Room<br>
 		</a>
 		<a href="/">			
-			<div class="roomLink">
-				Search for another Building
-			</div>
+				Search for another Building<br><br>
 		</a>
-
+		<form action="/room" autocomplete="off" method="GET">
+			<input type="hidden" name="BuildingID" value='{{ result.get("BuildingID") }}' />
+			<input type="hidden" name="Room" value='{{ result.get("Room") }}' />
+			<p>
+				<select id="dayList" name="Day" onchange="this.form.submit()">
+					<option selected value="TODAY">Select Another Day</option>
+					<option value="TODAY">Today</option>
+					<option value="M">Monday</option>
+					<option value="T">Tuesday</option>
+					<option value="W">Wednesday</option>
+					<option value="R">Thursday</option>
+					<option value="F">Friday</option>
+					<!-- <option value="S">Saturday</option>
+					<option value="SU">Sunday</option> -->
+				</select>
+			</p>
+		</form>
 		{% include 'calendar_neo.html' %}
 
 	</div>

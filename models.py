@@ -30,7 +30,6 @@ class Room(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     roomnumber = db.Column(db.String, nullable=False)
-    room_type = db.Column(db.String)
 
     days = db.relationship('Day', backref='owning_room')
 
@@ -115,16 +114,15 @@ class Room(db.Model):
     def __repr__(self):
         return "Room is: {}, Building is: {}".format(self.roomnumber, self.owning_building.name)
 
-    def __init__(self, roomnumber, room_type, building_id):
+    def __init__(self, roomnumber, building_id):
         self.roomnumber = roomnumber
-        self.room_type = room_type
         self.building_id = building_id
 
     def serialize(self):
         return {
             'id': self.id,
             'roomnumber': self.roomnumber,
-            'room_type': self.room_type
+            
             }
 
 

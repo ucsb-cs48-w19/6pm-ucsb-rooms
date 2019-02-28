@@ -3,12 +3,11 @@
 
 {% for i in range(room.time_list.__len__()) %}
 		<div class="timeBox" style="height: {{(room.time_list[i][1]-room.time_list[i][0]) * 2 }}px; background-color: #FFE6DA;">
-			Class from: {{ ((room.time_list[i][0] // 60) * 100) + (room.time_list[i][0] % 60) }} <br>
-			To: {{ ((room.time_list[i][1] // 60) * 100) + (room.time_list[i][1] % 60) }}
+			Class: {{ ((room.time_list[i][0] // 60)) }}:{% if ((room.time_list[i][0] % 60)|string).__len__() < 2 %}{{ room.time_list[i][0] % 60 }}0{% else %}{{ room.time_list[i][0] % 60 }}{% endif %}-{{ ((room.time_list[i][1] // 60)) }}:{% if ((room.time_list[i][1] % 60)|string).__len__() < 2 %}{{ room.time_list[i][1] % 60 }}0{% else %}{{ room.time_list[i][1] % 60 }}{% endif %} 
 		</div>
 		{% if room.time_list.__len__() > i + 1 %}
-				<div class="timeBox" style="height: {{ (room.time_list[i+1][0]-room.time_list[i][1]) * 2 }}px; background-color: #AFBDCB;">
-				Free {{ (room.time_list[i][1] // 60) * 100 +  room.time_list[i][1] % 60 }}-{{ (room.time_list[i+1][0] // 60) * 100 +  room.time_list[i+1][0] % 60 }}
+				<div class="timeBox" style="height: {{ (room.time_list[i+1][0]-room.time_list[i][1]) * 2 }}px;">
+				Free {{ (room.time_list[i][1] // 60)}}:{% if ((room.time_list[i][1] % 60)|string).__len__() < 2 %}{{ room.time_list[i][1] % 60 }}0{% else %}{{ room.time_list[i][1] % 60 }}{% endif %}-{{ (room.time_list[i+1][0] // 60)}}:{% if ((room.time_list[i+1][0] % 60)|string).__len__() < 2 %}{{ room.time_list[i+1][0] % 60 }}0{% else %}{{ room.time_list[i+1][0] % 60 }}{% endif %} 
 				</div>
 		{% endif %}
 {% endfor %}
