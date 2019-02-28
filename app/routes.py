@@ -28,11 +28,13 @@ def result():
     elif request.method == 'GET':
         result = request.args.to_dict()
         result['Building'] = request.args.get('Building').upper();
+        result['Room'] = request.args.get('Room');
         #print("THIS IS THE DIR========",dir(result))
         if (result.get("Day") == "TODAY"):
             result["Day"] = get_day_pst()
         #print("RESULTS ARE A: ", help(result))
         name = result.get("Building")
+        rn = request.args.get('Room')
         allBuildings = ""
         try:
             # print(Room.query.first())
@@ -51,6 +53,16 @@ def result():
              else:
                  buildings = Building.query.all()
                  return render_template("home.html", placeholder='Invalid Building', buildings=buildings)
+
+             if(rn != ""):
+                 id=building.id
+                 room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
+                 if(room!=None):
+                     time = get_time_pst()
+                     if (result.get("Day") == "TODAY"):
+                         result["Day"] = get_day_pst()
+                     room.free_time(result.get("Day"),get_time_pst())
+                     return render_template("room.html", result=result, room=room, time=time)
 
              return render_template("result.html", result=result, building=building, rooms=rooms, time=get_time_pst())#get_time_pst())
         except Exception as e:
