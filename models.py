@@ -114,16 +114,15 @@ class Room(db.Model):
     def __repr__(self):
         return "Room is: {}, Building is: {}".format(self.roomnumber, self.owning_building.name)
 
-    def __init__(self, roomnumber, room_type, building_id):
+    def __init__(self, roomnumber, building_id):
         self.roomnumber = roomnumber
-        self.room_type = room_type
         self.building_id = building_id
 
     def serialize(self):
         return {
             'id': self.id,
             'roomnumber': self.roomnumber,
-            'room_type': self.room_type
+            
             }
 
 
