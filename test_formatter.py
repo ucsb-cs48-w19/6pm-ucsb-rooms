@@ -1,6 +1,6 @@
 import datetime
 import pytest
-from app import get_time_pst, get_day_pst
+from app import get_day_pst, get_time_pst
 
 now = datetime.datetime.now()
 Time = now.time()
