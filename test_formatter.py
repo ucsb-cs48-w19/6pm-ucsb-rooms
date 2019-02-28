@@ -1,7 +1,7 @@
 import datetime
 import pytest
 from app import get_day_pst
-from app import get_time_pst
+
 
 now = datetime.datetime.now()
 Time = now.time()
@@ -11,8 +11,8 @@ weekdayLetter = weekday[0]
 
 
 
-def test_get_time_pst():
-    assert get_time_pst() == Test_Time
+#def test_get_time_pst():
+    #assert get_time_pst() == Test_Time
 
 def test_get_day_pst():
     if(weekday == 'Thursday'):
