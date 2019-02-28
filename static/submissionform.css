@@ -19,8 +19,8 @@ div.roomLink {
 	min-height: max-content;
 	margin: 10px auto 10px auto;
 	padding: 10px;
-	border: 5px solid #353432ff;
-	border-opacity: 60%;
+	/*border: 5px solid #353432ff;
+	border-opacity: 60%;*/
 	color: #475058 !important;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
@@ -40,14 +40,14 @@ div.timeBox {
 	border-collapse:separate;
 	margin: 2px auto 2px auto;
 	padding: 10px;
-	border: 2px solid #353432ff;
-	border-opacity: 60%;
+	/*border: 2px solid #353432ff;
+	border-opacity: 60%;*/
 	color: #475058 !important;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
 	border-style: green;
-	background-color: #e0dbd8;
+	background-color: #7de031;
 	text-align: center;
 	-webkit-transition: background-color 0.3s, color 0.3s; /* For Safari 3.1 to 6.0 */
   	transition: background-color 0.3s, color 0.2s;
@@ -76,7 +76,7 @@ div.messageArea {
 	width: 30%;
 	min-width: max-content;
 	margin: auto;
-	margin-top: 150px;
+	margin-top: 40px;
 	padding: 10px;
 	/* 		background-color: #fafafa; */
 	border: 5px solid #353432ff;
@@ -91,7 +91,7 @@ div.messageArea {
 }
 
 div.searchArea {
-	margin-top: 25px;
+	margin-top: 0px;
 	background-color: #fafafa;
 	border: 5px solid #353432ff;
 	border-opacity: 60%;
@@ -99,6 +99,7 @@ div.searchArea {
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
+	padding: 10px;
 	/* border-style: green;*/
 }
 
@@ -116,7 +117,7 @@ form {
 	max-width: 100%;
 	border-radius: 5px;
 	font-size: 16px;
-	min-height: 46px;
+	min-height: 10px;
 	padding: 0px;
 	width: 100%;
 	display: block;
@@ -165,7 +166,9 @@ input {
 }
 
 body {
-	background-image: url("/static/background.webp");
+	background-image: url("/static/background.jpg");
+	background-position: -0px 101%;
+	background-attachment: fixed;
 	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica,
 		Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
 	/* 	background-color: grey; */

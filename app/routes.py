@@ -52,7 +52,7 @@ def result():
                  buildings = Building.query.all()
                  return render_template("home.html", placeholder='Invalid Building', buildings=buildings)
 
-             return render_template("result.html", result=result, building=building, rooms=rooms)#get_time_pst())
+             return render_template("result.html", result=result, building=building, rooms=rooms, time=get_time_pst())#get_time_pst())
         except Exception as e:
             return(str(e))
 
@@ -64,7 +64,10 @@ def page_not_found(e):
 @app.route('/room', methods=['GET'])
 def room():
     """Display a specific room. Sytntax is as follows: /room?Building=HSSB&Room=2001A"""
-    result = request.args
+    result = request.args.to_dict()
+    time = get_time_pst()
+    if (result.get("Day") == "TODAY"):
+        result["Day"] = get_day_pst()
     id = int(request.args.get('BuildingID'))
     #building = Building.query.filter_by(name=name).first()
 
@@ -72,60 +75,9 @@ def room():
 
     room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
     room.free_time(result.get("Day"),get_time_pst())
-    print(room.time_list)
+#    print(room.time_list)
 #     print(room.free_time(result.get("Day"),get_time_pst()))
-
-    return render_template("room.html", result=result, room=room)
-
-
-@app.route("/add")
-def add_building():
-    name = request.args.get('name')
-    try:
-        building = Building(
-            name=name
-        )
-        db.session.add(building)
-        db.session.commit()
-        return "Building added. building id={}".format(building.id)
-    except Exception as e:
-	    return(str(e))
-
-
-@app.route("/getall")
-def get_all():
-    try:
-        building = Building.query.all()
-        allBuildings = jsonify([e.serialize() for e in building])
-        print (allBuildings)
-        return  jsonify([e.serialize() for e in building])
-    except Exception as e:
-	    return(str(e))
-
-
-@app.route("/get/<id_>")
-def get_by_id(id_):
-    try:
-        building = Building.query.filter_by(id=id_).first()
-        return jsonify(building.serialize())
-    except Exception as e:
-	    return(str(e))
-
-
-@app.route("/add/form", methods=['GET', 'POST'])
-def add_building_form():
-    if request.method == 'POST':
-        name = request.form.get('name')
-        try:
-            building = Building(
-                name=name
-            )
-            db.session.add(building)
-            db.session.commit()
-            return "Building added. building id={}".format(building.id)
-        except Exception as e:
-            return(str(e))
-    return render_template("home.html")
+    return render_template("room.html", result=result, room=room, time=time)
 
 
 if __name__ == '__main__':
