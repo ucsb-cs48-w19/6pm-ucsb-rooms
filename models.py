@@ -8,19 +8,22 @@ class Building(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), unique=True, nullable=False)
+    full_name = db.Column(db.String(32), unique=True, nullable=False)
 
     rooms = db.relationship('Room', backref='owning_building', lazy=True)
 
     def __repr__(self):
         return "<Building: {}>".format(self.name)
 
-    def __init__(self, name):
+    def __init__(self, name, full_name=""):
         self.name = name
+        self.full_name=full_name
 
     def serialize(self):
         return {
             'id': self.id,
             'name': self.name,
+            'full_name': self.full_name
             }
 
 
