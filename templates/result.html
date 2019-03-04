@@ -19,6 +19,7 @@
 
 		<form action="/result" autocomplete="off" method="GET">
 			<input type="hidden" name="Building" value='{{ result.get("Building") }}' />
+			<input type="hidden" name="Room" value='{{ result.get("Room") }}' />
 			<p>
 				<select id="dayList" name="Day" onchange="this.form.submit()">
 					<option selected value="TODAY">Select Another Day</option>

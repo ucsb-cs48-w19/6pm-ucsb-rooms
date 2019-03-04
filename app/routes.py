@@ -20,12 +20,9 @@ def home():
     return render_template('home.html', placeholder="Building", room_placeholder="", buildings=buildings)
 
 
-@app.route('/result', methods=['POST', 'GET'])
+@app.route('/result', methods=['GET'])
 def result():
-    if request.method == 'POST':
-        result = request.form.to_dict()
-        return render_template("result.html", result=result)
-    elif request.method == 'GET':
+    if request.method == 'GET':
         result = request.args.to_dict()
         result['Building'] = request.args.get('Building').upper();
         result['Room'] = request.args.get('Room');
@@ -78,7 +75,7 @@ def page_not_found(e):
 
 @app.route('/room', methods=['GET'])
 def room():
-    """Display a specific room. Sytntax is as follows: /room?Building=HSSB&Room=2001A"""
+    """Display a specific room. Syntax is as follows: /room?Building=HSSB&Room=2001A"""
     result = request.args.to_dict()
     time = get_time_pst()
     if (result.get("Day") == "TODAY"):
