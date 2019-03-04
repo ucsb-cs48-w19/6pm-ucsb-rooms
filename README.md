@@ -85,6 +85,7 @@ To build the database follow these steps:
 If you would like to build a smaller version of the database that will take 2-3 and still give you a lot of function.
 To build the smaller database skip this step. To build the larger one, in file buildDatabase.py, change line 10 from:scrape.iterateAnthropology() to scrape.iterateSubjects()
 2. build the database locally by typing on terminal:
+3. To build a heroku database, set the environment variable DATABASE_URL to the URI of your postgress database, then run buildDatabase.py. This will create duplicate entries in the database, so make sure to clear the database first. 
 `python3 buildDatabase.py`
 
  This database will be built using SQLite to site.db or built to your app's Heroku database
@@ -92,7 +93,7 @@ To build the smaller database skip this step. To build the larger one, in file b
 
 ## **Running Locally**
 For developers, after cloning the repo and installing dependancies, run command `python3 app.py` to start the project locally.
-Go to the url http://0.0.0.0:5000/
+Go to the url http://0.0.0.0:7777/
 
 ## **Deploy to Heroku**
 1. Set up a heroku remote by running the command: heroku git:remote -a "name of app"
