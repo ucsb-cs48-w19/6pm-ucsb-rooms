@@ -261,7 +261,7 @@ class Scraper(object):
     def parse_room_building(self, building_number):
         building = ""
         room = ""
-        invalid = ["RGYM", "TRACKFIELD", "ENGR", "TBA", "T B A", "ON LINE", "ONLINE", "IV", "BSBL", "RECEN", "SB HARBR", "ZODO", "REGYM", "EVENTCENTR", "GOLF", "STORKFIELD", "SWIM", "SFTBLFIELD"]
+        invalid = ["NO", "PLLOKSTG", "MUSICGHALL", "HARDRSTADM", "RGYM", "TRACKFIELD", "ENGR", "TBA", "T B A", "ON LINE", "ONLINE", "IV", "BSBL", "RECEN", "SB HARBR", "ZODO", "REGYM", "EVENTCENTR", "GOLF", "STORKFIELD", "SWIM", "SFTBLFIELD"]
         if any(word in building_number for word in invalid):
             return "invalid", "invalid"
         if " " in building_number:

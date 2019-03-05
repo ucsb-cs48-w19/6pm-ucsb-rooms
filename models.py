@@ -8,7 +8,7 @@ class Building(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), unique=True, nullable=False)
-    full_name = db.Column(db.String(32), unique=True, nullable=False)
+    full_name = db.Column(db.String(256), unique=True, nullable=False)
 
     rooms = db.relationship('Room', backref='owning_building', lazy=True)
 
