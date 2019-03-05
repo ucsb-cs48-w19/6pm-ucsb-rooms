@@ -8,8 +8,8 @@ from astropy.units import day
 
 scrape=Scraper()
 
-#scrape.iterateSubjects()
-scrape.iterateAnthropology()
+scrape.iterateSubjects()
+#scrape.iterateAnthropology()
 
 print("====THE SCRAPER FINISHED RUNNING, NOW WE'RE GONNA VIEW THE OBJECT STORED RESULTS=====")
 
@@ -20,7 +20,7 @@ def get_pretty_name(abbrev):
         return "Former Women's Center"
     elif (abbrev=="451"):
         return "Military Science Building"
-    elif (abbrev=="451"):
+    elif (abbrev=="942"):
         return "Building 942"
     elif (abbrev=="ARTS"):
         return "Arts & University Art Museum"
@@ -47,33 +47,37 @@ def get_pretty_name(abbrev):
     elif (abbrev=="ELNGS"):
         return "Elings Hall"
     elif (abbrev=="EMBARHALL"):
-        return "	Embarcadero Hall"
+        return "Embarcadero Hall"
     elif (abbrev=="ESB"):
-        return "	Engineering Sciences Building"
+        return "Engineering Sciences Building"
     elif (abbrev=="GIRV"):
-        return "	Girvetz Hall"
+        return "Girvetz Hall"
     elif (abbrev=="HARDR" or abbrev=="HARDRSTADM"):
-        return "	Harder Stadium"
+        return "Harder Stadium"
+    elif (abbrev=="HSSB"):
+        return "Humanities and Social Sciences Building"
+    elif (abbrev=="HFH"):
+        return "Harold Frank Hall"
     elif (abbrev=="ICA"):
-        return "	Intercollegiate Building"
+        return "Intercollegiate Building"
     elif (abbrev=="KERR"):
-        return "	Kerr Hall"
+        return "Kerr Hall"
     elif (abbrev=="LIB"):
-        return "	Library"
+        return "Library"
     elif (abbrev=="LSB"):
-        return "	Life Science Building"
+        return "Life Science Building"
     elif (abbrev=="MLAB"):
-        return "	Marine Biology Laboratory"
+        return "Marine Biology Laboratory"
     elif (abbrev=="MUSIC"):
-        return "	Music Laboratory"
+        return "Music Laboratory"
     elif (abbrev=="MUSICLLCH"):
-        return "	Lotte Lehmann Concert Hall"
+        return "Lotte Lehmann Concert Hall"
     elif (abbrev=="NH"):
-        return "	North Hall"
+        return "North Hall"
     elif (abbrev=="NOBLE"):
-        return "	Noble Hall"
+        return "Noble Hall"
     elif (abbrev=="PHELP"):
-        return "	Phelps Hall"
+        return "Phelps Hall"
     elif (abbrev=="PLLOKTHTR"):
         return "Pollock Theater"
     elif (abbrev=="PSYCH"):
