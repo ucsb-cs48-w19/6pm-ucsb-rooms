@@ -38,7 +38,7 @@
 				<datalist id="buildingList">
 
 					{% for building in buildings %}
-				 		<option value="{{building.name}}">{{building.full_name}}</option>
+				 		<option name="hi" value="{{building.name}}">{{building.full_name}}</option>
 					{% endfor %}
 
 				</datalist>
@@ -52,9 +52,10 @@
 							if (!nativedatalist) {
 								$('input[list]').each(function () {
 									var availableTags = $('#' + $(this).attr("list")).find('option').map(function () {
-										return this.value;
+										
+										return this.text;
 									}).get();
-									$(this).autocomplete({ source: availableTags });
+									$(this).autocomplete({ source: availableTags, autoFocus: true });
 								});
 							}
 						});
