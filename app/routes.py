@@ -7,6 +7,7 @@ from app.forms import LoginForm
 from app.time_formatter import get_day_pst
 from app.time_formatter import get_time_pst
 
+
 @app.route("/")
 def home():
     buildings = Building.query.all()
@@ -18,7 +19,7 @@ def home():
 def result():
     if request.method == 'GET':
         result = request.args.to_dict()
-        result['Building'] = request.args.get('Building').upper()
+#         result['Building'] = request.args.get('Building').upper()
         result['Room'] = request.args.get('Room').upper()
         if (result.get("Day") == "TODAY"):
             result["Day"] = get_day_pst()
@@ -27,7 +28,8 @@ def result():
         allBuildings = ""
         try:
 
-             building = Building.query.filter_by(name=name).first()
+             building = get_building_by_name(name)
+#              building = Building.query.filter_by(name=name).first()
              rooms = []
              if (building != None):
                 rooms = building.rooms
@@ -40,22 +42,23 @@ def result():
                  return render_template("home.html", placeholder='Invalid Building', buildings=buildings)
 
              if(rn != ""):
-                 id=building.id
+                 id = building.id
                  
-                 room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
-                 if(room!=None):
+                 room = Room.query.filter(Room.building_id == id, Room.roomnumber == rn).first()
+                 if(room != None):
                      time = get_time_pst()
                      if (result.get("Day") == "TODAY"):
                          result["Day"] = get_day_pst()
-                     room.free_time(result.get("Day"),get_time_pst())
+                     room.free_time(result.get("Day"), get_time_pst())
                      return render_template("room.html", result=result, room=room, time=time)
                  else:
                     buildings = Building.query.all()
                     return render_template("home.html", room_placeholder='Invalid Room number', buildings=buildings)
 
-             return render_template("result.html", result=result, building=building, rooms=rooms, time=get_time_pst())#get_time_pst())
+             return render_template("result.html", result=result, building=building, rooms=rooms, time=get_time_pst())  # get_time_pst())
         except Exception as e:
             return(str(e))
+
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -70,16 +73,23 @@ def room():
     if (result.get("Day") == "TODAY"):
         result["Day"] = get_day_pst()
     name = request.args.get('Building')
-
-    building = Building.query.filter_by(name=name).first()
-    id=building.id
+    building = get_building_by_name(name)
+#     building = Building.query.filter_by(name=name).first()
+    id = building.id
      
     rn = request.args.get('Room')
-    room = Room.query.filter(Room.building_id==id, Room.roomnumber==rn).first()
+    room = Room.query.filter(Room.building_id == id, Room.roomnumber == rn).first()
 
-    room.free_time(result.get("Day"),get_time_pst())
+    room.free_time(result.get("Day"), get_time_pst())
 
     return render_template("room.html", result=result, room=room, time=time)
+
+
+def get_building_by_name(name):
+    building = Building.query.filter_by(name=name.upper()).first()
+    if building == None:
+        building = Building.query.filter_by(full_name=name).first()
+    return building
 
 
 if __name__ == '__main__':
