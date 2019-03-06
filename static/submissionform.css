@@ -60,7 +60,7 @@ div.roomLink:hover {
 }
 
 .myarrow:after {
-	content: url("/static/arrow.png");
+	/*content: url("/static/arrow.png");*/
 	margin-left: -20px;
 	padding: .1em;
 	pointer-events: none;
