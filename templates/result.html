@@ -37,7 +37,7 @@
 
 		
 		{% for room in rooms %}
-				 <a href="/room?BuildingID={{ building.id }}&Room={{ room.roomnumber }}&Day={{ result.get('Day') }}">
+				 <a href="/room?Building={{ building.name }}&Room={{ room.roomnumber }}&Day={{ result.get('Day') }}">
 					 <div class="roomLink">
 					 	Room: {{ room.roomnumber }} on day: {{ result.get('Day') }} 
 					 	<br>

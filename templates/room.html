@@ -38,7 +38,7 @@
 				Search for another Building<br><br>
 		</a>
 		<form action="/room" autocomplete="off" method="GET">
-			<input type="hidden" name="BuildingID" value='{{ result.get("BuildingID") }}' />
+			<input type="hidden" name="Building" value='{{ result.get("Building") }}' />
 			<input type="hidden" name="Room" value='{{ result.get("Room") }}' />
 			<p>
 				<select id="dayList" name="Day" onchange="this.form.submit()">
