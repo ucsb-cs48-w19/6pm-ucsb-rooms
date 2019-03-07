@@ -20,6 +20,7 @@
 		<form action="/result" autocomplete="off" method="GET">
 			<input type="hidden" name="Building" value='{{ result.get("Building") }}' />
 			<input type="hidden" name="Room" value='{{ result.get("Room") }}' />
+			<input type="hidden" name="Sort" value='{{ result.get("Sort") }}' />
 			<p>
 				<select id="dayList" name="Day" onchange="this.form.submit()">
 					<option selected value="TODAY">Select Another Day</option>
@@ -40,7 +41,7 @@
 		{% endif %}
 		
 		{% for room in rooms %}
-				 <a href="/room?Building={{ building.name }}&Room={{ room.roomnumber }}&Day={{ result.get('Day') }}">
+				 <a href="/room?Building={{ building.name }}&Room={{ room.roomnumber }}&Day={{ result.get('Day') }}&Sort={{ result.get('Sort') }}">
 					 <div class="roomLink">
 					 	Room: {{ room.roomnumber }} on day: {{ result.get('Day') }} 
 					 	<br>
