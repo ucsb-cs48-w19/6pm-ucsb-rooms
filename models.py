@@ -43,8 +43,6 @@ class Room(db.Model):
     
     time_room_free = "Free Rest of Day"
     time_list = []
-#    building = db.relationship("Building", backref=db.backref(
-#        "room", order_by=id), lazy=True)
 
     def __lt__(self, other):
         return other.minutes_free < self.minutes_free
@@ -70,10 +68,7 @@ class Room(db.Model):
         """
         # Start out with a fresh list of times to generate. This prevents the list from getting full if this function is called more than once.
         self.time_list.clear()
-#         self.time_list.append((840,915))
-#         print("Time is:",time)
         time = self.time_in_minutes(time)
-#         print("Day is:", day, "Time is:", time, "Room is:", self.roomnumber)
         today = 0
 
         for d in self.days:
@@ -96,7 +91,6 @@ class Room(db.Model):
             for class_time in self.time_list:
                 start = class_time[0]
                 end = class_time[1]
-#                 print("Time is:",time,"Start is:", start)
 
                 if time < start:
 
@@ -125,7 +119,6 @@ class Room(db.Model):
         return {
             'id': self.id,
             'roomnumber': self.roomnumber,
-            
             }
 
 
@@ -142,7 +135,6 @@ class Day(db.Model):
         self.ranges = self.ranges + time
 
     def __repr__(self):
-        # return "Day is: {}, Time ranges are: {}, Owning room is: {}".format(self.name, self.ranges, self.owning_room.roomnumber)
         return "On: {} Time ranges are: {}".format(self.name, self.ranges)
 
     def __init__(self, name, ranges, room_id):
