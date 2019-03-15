@@ -19,7 +19,7 @@ def home():
 def result():
     if request.method == 'GET':
         result = request.args.to_dict()
-#         result['Building'] = request.args.get('Building').upper()
+    #    result['Building'] = request.args.get('Building').upper()
         result['Room'] = request.args.get('Room').upper()
         if (result.get("Day") == "TODAY"):
             result["Day"] = get_day_pst()
@@ -43,7 +43,7 @@ def result():
 
              if(rn != ""):
                  id = building.id
-                 
+
                  room = Room.query.filter(Room.building_id == id, Room.roomnumber == rn).first()
                  if(room != None):
                      time = get_time_pst()
@@ -76,7 +76,7 @@ def room():
     building = get_building_by_name(name)
 #     building = Building.query.filter_by(name=name).first()
     id = building.id
-     
+
     rn = request.args.get('Room')
     room = Room.query.filter(Room.building_id == id, Room.roomnumber == rn).first()
 
