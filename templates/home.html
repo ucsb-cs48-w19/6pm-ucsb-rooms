@@ -1,5 +1,15 @@
 {% extends 'layout.html' %} {% block body %}
 <head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-136315062-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-136315062-1');
+</script>
+
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -52,7 +62,7 @@
 							if (!nativedatalist) {
 								$('input[list]').each(function () {
 									var availableTags = $('#' + $(this).attr("list")).find('option').map(function () {
-										
+
 										return this.text;
 									}).get();
 									$(this).autocomplete({ source: availableTags, autoFocus: true });
