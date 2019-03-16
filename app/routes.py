@@ -19,7 +19,6 @@ def home():
 def result():
     if request.method == 'GET':
         result = request.args.to_dict()
-    #    result['Building'] = request.args.get('Building').upper()
         result['Room'] = request.args.get('Room').upper()
         if (result.get("Day") == "TODAY"):
             result["Day"] = get_day_pst()
@@ -29,14 +28,16 @@ def result():
         try:
 
              building = get_building_by_name(name)
-#              building = Building.query.filter_by(name=name).first()
              rooms = []
              if (building != None):
                 rooms = building.rooms
                 for r in rooms:
                     r.free_time(result.get("Day"), get_time_pst())
 
-                rooms.sort()
+                if (result.get("Sort") == "number"):
+                    rooms.sort(key=lambda r: r.roomnumber)
+                else:
+                    rooms.sort();
              else:
                  buildings = Building.query.all()
                  return render_template("home.html", placeholder='Invalid Building', buildings=buildings)
@@ -55,7 +56,7 @@ def result():
                     buildings = Building.query.all()
                     return render_template("home.html", room_placeholder='Invalid Room number', buildings=buildings)
 
-             return render_template("result.html", result=result, building=building, rooms=rooms, time=get_time_pst())  # get_time_pst())
+             return render_template("result.html", result=result, building=building, rooms=rooms, time=get_time_pst())
         except Exception as e:
             return(str(e))
 
@@ -74,7 +75,6 @@ def room():
         result["Day"] = get_day_pst()
     name = request.args.get('Building')
     building = get_building_by_name(name)
-#     building = Building.query.filter_by(name=name).first()
     id = building.id
 
     rn = request.args.get('Room')
@@ -90,7 +90,3 @@ def get_building_by_name(name):
     if building == None:
         building = Building.query.filter_by(full_name=name).first()
     return building
-
-
-if __name__ == '__main__':
-    app.run(debug=True)

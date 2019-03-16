@@ -20,6 +20,7 @@
 		<form action="/result" autocomplete="off" method="GET">
 			<input type="hidden" name="Building" value='{{ result.get("Building") }}' />
 			<input type="hidden" name="Room" value='{{ result.get("Room") }}' />
+			<input type="hidden" name="Sort" value='{{ result.get("Sort") }}' />
 			<p>
 				<select id="dayList" name="Day" onchange="this.form.submit()">
 					<option selected value="TODAY">Select Another Day</option>
@@ -29,15 +30,18 @@
 					<option value="W">Wednesday</option>
 					<option value="R">Thursday</option>
 					<option value="F">Friday</option>
-					<!-- <option value="S">Saturday</option>
-					<option value="SU">Sunday</option> -->
 				</select>
 			</p>
 		</form>
-
+		
+		{% if result.get("Sort") != "number" %}
+			<a href='/result?Building={{result.get("Building")}}&Room={{result.get("Room")}}&Day={{result.get("Day")}}&Sort=number'>Sort by Room Number</a>
+		{% else %}
+			<a href='/result?Building={{result.get("Building")}}&Room={{result.get("Room")}}&Day={{result.get("Day")}}&Sort=free_time'>Sort by Free Time</a>
+		{% endif %}
 		
 		{% for room in rooms %}
-				 <a href="/room?Building={{ building.name }}&Room={{ room.roomnumber }}&Day={{ result.get('Day') }}">
+				 <a href="/room?Building={{ building.name }}&Room={{ room.roomnumber }}&Day={{ result.get('Day') }}&Sort={{ result.get('Sort') }}">
 					 <div class="roomLink">
 					 	Room: {{ room.roomnumber }} on day: {{ result.get('Day') }} 
 					 	<br>

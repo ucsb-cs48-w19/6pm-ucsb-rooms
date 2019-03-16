@@ -31,7 +31,7 @@
 	 	</p>
 		  -->
 
-		<a href="/result?Building={{ room.owning_building.name }}&Room=&Day={{ result.get('Day') }}">
+		<a href="/result?Building={{ room.owning_building.name }}&Room=&Day={{ result.get('Day') }}&Sort={{ result.get('Sort') }}">
 				<br>Search for another Room<br>
 		</a>
 		<a href="/">
@@ -53,6 +53,7 @@
 					<option value="SU">Sunday</option> -->
 				</select>
 			</p>
+			<input type="hidden" name="Sort" value='{{ result.get("Sort") }}' />
 		</form>
 		{% include 'calendar_neo.html' %}
 
