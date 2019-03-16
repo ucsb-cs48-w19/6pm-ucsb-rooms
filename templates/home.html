@@ -52,7 +52,7 @@
 							if (!nativedatalist) {
 								$('input[list]').each(function () {
 									var availableTags = $('#' + $(this).attr("list")).find('option').map(function () {
-										
+
 										return this.text;
 									}).get();
 									$(this).autocomplete({ source: availableTags, autoFocus: true });

@@ -44,7 +44,7 @@ def result():
 
              if(rn != ""):
                  id = building.id
-                 
+
                  room = Room.query.filter(Room.building_id == id, Room.roomnumber == rn).first()
                  if(room != None):
                      time = get_time_pst()
@@ -76,7 +76,7 @@ def room():
     name = request.args.get('Building')
     building = get_building_by_name(name)
     id = building.id
-     
+
     rn = request.args.get('Room')
     room = Room.query.filter(Room.building_id == id, Room.roomnumber == rn).first()
 
